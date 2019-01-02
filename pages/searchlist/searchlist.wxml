@@ -1,0 +1,35 @@
+<view class='searchTop'>
+  <view class='searchBody'>
+    <input placeholder="请输入关键字查询" class='searchInput' placeholder-class="searchHolder" focus="{{focus}}" bindfocus="gotoSearchList" />
+    <view  class='searchIcon'><i-icon size="24" type="search" /></view>
+  </view>
+  <view class='cancelBtn'>取消</view>
+</view>
+<view class='searchList' scroll-y>
+  <i-panel title="医生">
+      <view>
+        <i-cell-group>
+            <i-cell title="中医内科" label="中医内科"  is-link url="../doctor/doctor">
+                <image class='cellImage' src='../../images/infoImg.jpg'  slot="icon"></image>
+            </i-cell>
+            <i-cell title="中医内科" label="中医内科">
+                <image class='cellImage' src='../../images/infoImg.jpg'  slot="icon"></image>
+            </i-cell>
+            <i-cell title="中医内科" label="中医内科">
+                <image class='cellImage' src='../../images/infoImg.jpg'  slot="icon"></image>
+            </i-cell>
+            <i-cell title="查看更多" is-link url="../dashboard/index" only-tap-footer></i-cell>
+        </i-cell-group>
+      </view>
+  </i-panel>
+  <i-panel title="科室">
+      <view>
+        <i-cell-group>
+            <i-cell title="中医内科" is-link url="../reserve/reserve">
+              <i-icon type="document" size='28'  slot="icon" />
+            </i-cell>
+            <i-cell title="查看更多" is-link url="../dashboard/index" only-tap-footer></i-cell>
+        </i-cell-group>
+      </view>
+  </i-panel>
+</view>

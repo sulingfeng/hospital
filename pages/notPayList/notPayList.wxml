@@ -1,0 +1,25 @@
+<view>
+  <view class='panel-m20'>
+      <view class="medicare">暂时不支持医保卡看病，持有医保卡的用户请到前台直接办理</view>
+  <view class="personInfoTop" >
+    <view>苏俊凌</view>
+    <view><j-changeMan/></view>
+    <view class='clearFloat'></view>
+    <view class='seeCard'>就诊卡：465464</view>
+  </view>
+  <view class='notPayTitle'>代缴费项目</view>  
+  <view class="notPayWrapper">
+    <view wx:for="{{notPayData}}" wx:key="{{ item.id }}">
+      <checkbox bindtap="handleClick" data-price="{{ item.price }}" data-id="{{ item.id }}"></checkbox>
+      <text>{{item.name}}</text>
+      <view>￥{{item.price}}</view>
+    </view>
+  </view>
+  </view>
+  <view class='goPayYes'>
+    <checkbox></checkbox>
+    <text>全选</text>
+    <text>总金额:￥{{totalPrice}}</text>  
+    <view bindtap="toPay">去缴费</view>
+  </view>
+</view>

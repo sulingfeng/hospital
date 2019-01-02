@@ -1,0 +1,16 @@
+/* pages/deposit/deposit.wxss */
+.flexBody{
+  display: flex;
+  justify-content: space-between;
+  color: #999;
+}
+.flexLeft{
+  font-size: .75rem;
+}
+.flexRight{
+  font-size: .5rem;
+}
+.momey{
+  font-size: .75rem;
+  color: #008e76
+}

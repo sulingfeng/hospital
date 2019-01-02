@@ -1,0 +1,19 @@
+<view class='panel-m20'>
+  <view class="personInfoTop">
+    科室介绍
+  </view>
+
+  <view class="wrapper">
+    <view>
+      <text>科室地址</text>
+      <text>4楼</text>
+    </view>
+    <view>
+      <text>科室电话</text>
+      <text>208-88888888</text>
+    </view>
+  </view>
+  <view class='panel'>
+    四川大学华西医院（West China Hospital，Sichuan University）是中国西部疑难危急重症诊疗的国家级中心，也是世界规模第一的综合性单点医院，拥有中国规模最大、最早整体通过美国病理家学会（CAP）检查认可的医学检验中心。 [1] 华西医院起源于美国、加拿大、英国等国基督教会1892年在成都创建的仁济、存仁医院；1937年抗日战争全面爆发，中央大学、燕京大学、齐鲁大学、金陵大学、金陵女子文理学院内迁成都，与华西协合大学联合办学办医；1938年，有医学院的华大、中大、齐大组建联合医院；1946年，华西协合大学医院在现址全部建成，简称华西医院。
+  </view>
+</view>
