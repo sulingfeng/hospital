@@ -1,4 +1,5 @@
 // pages/doctor/doctor.js
+const urlApi = require('../../utils/server.api.js')
 const app = getApp();
 Page({
 
@@ -6,43 +7,54 @@ Page({
    * 页面的初始数据
    */
   data: {
-    current: 'tab1',
-    introduce: "hidden",
-    registration: "show"
+    appId: "",
+    nonceStr: "",
+    package: "",
+    paySign: "",
+    signType: "",
+    timeStamp: "",
   },
 
-  WXPay:function(){
-    console.log("调用了支付接口")
-    console.log("调用了支付接口", app.globalData.userInfo)
-    wx.showToast({
-      title: '支付成功',
-      icon: 'success',
-      complete: function () {
-        // url = escape(url + "&resultCode=SUCCESS");
-        // wx.redirectTo({
-        //   url: "/pages/view/view?url=" + url + "&fnName=" + fnName
-        // })
+  payInfo: function() {
+    var that = this;
+    var url = "http://2hfis9.natappfree.cc/Weixin/Pay/Registration?OpenId=oDfEV0e823WozcpHu3UvocPc9-OY"
+    wx.request({
+      url: url, //仅为示例，并非真实的接口地址
+      method: "POST",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {},
+      success: function(res) {
+        var data = res.data;
+        console.log()
+        that.setData({
+          appId: data.appId,
+          nonceStr: data.nonceStr,
+          package: data.package,
+          paySign: data.paySign,
+          signType: data.signType,
+          timeStamp: data.timeStamp
+        })
       }
     })
-    return;
+  },
 
-
-    var url = "/MinProgram/PayConfirm?orderID=" + options.orderID;
-    var fnName = "/MinProgram/PayConfirm";
+  WXPay: function() {
+    var that = this;
     wx.requestPayment({
-      "appId": options.appId,
-      "timeStamp": options.timeStamp,
-      "nonceStr": options.nonceStr,
-      "package": 'prepay_id=' + options.prepayId,
-      "signType": options.signType,
-      "paySign": options.paySign,
-      "complete": function (res) {
-        // console.log("小程序支付成功：");
-        // console.log(res);
+      "appId": this.data.appId,
+      "timeStamp": this.data.timeStamp,
+      "nonceStr": this.data.nonceStr,
+      "package": this.data.package,
+      "signType": this.data.signType,
+      "paySign": this.data.paySign,
+      "complete": function(res) {
+        console.log("小程序支付成功：",res);
         wx.showToast({
           title: '支付成功',
           icon: 'success',
-          complete: function () {
+          complete: function() {
             url = escape(url + "&resultCode=SUCCESS");
             wx.redirectTo({
               url: "/pages/view/view?url=" + url + "&fnName=" + fnName
@@ -50,13 +62,12 @@ Page({
           }
         })
       },
-      'fail': function (res) {
-        // console.log("小程序支付失败：");
-        // console.log(res);
+      'fail': function(res) {
+        console.log("小程序支付失败：",res);
         wx.showModal({
           title: '支付失败',
           content: res.errMsg,
-          complete: function () {
+          complete: function() {
             url = escape(url + "&resultCode=FAIL");
             wx.redirectTo({
               url: "/pages/view/view?url=" + url + "&fnName=" + fnName
@@ -70,14 +81,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this.payInfo()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
@@ -85,43 +96,43 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    
+  onShow: function() {
+
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

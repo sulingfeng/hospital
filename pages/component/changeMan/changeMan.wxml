@@ -7,13 +7,13 @@
     <view slot="header" style="padding: 16px">
       <view style="color: #444;font-size: 16px">切换就诊卡</view>
       <i-cell-group>
-        <i-cell title="苏俊凌" value="就诊卡：265465464">
-          <i-icon slot="icon" type="right" size="28" color="#1498d9" />
+        <i-cell title="李世民" value="就诊卡：265465464" data-type="1" bind:click="changeMan">
+          <i-icon slot="icon" type="right" size="28" color="{{active}}" />
         </i-cell>
       </i-cell-group>
       <i-cell-group>
-        <i-cell title="苏俊凌" value="就诊卡：265465464">
-          <i-icon slot="icon" type="right" size="28" color="#fff" />
+        <i-cell title="赵匡胤" value="就诊卡：165641655" data-type="0" bind:click="changeMan">
+          <i-icon slot="icon" type="right" size="28" color="{{notActive}}" />
         </i-cell>
       </i-cell-group>
     </view>

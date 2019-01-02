@@ -12,6 +12,7 @@ Page({
     pensorName:"",
     pensorNumber:"",
     visible1: false,
+    code:"",
     actions4: [
       {
         name: '确定'

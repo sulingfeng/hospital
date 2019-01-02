@@ -1,6 +1,7 @@
 // pages/addcard/addcard.js
 const { $Message } = require('../../iview/base/index');
-const urlApi = require('../../utils/server.api.js')
+const urlApi = require('../../utils/server.api.js');
+const app = getApp();
 Page({
 
   /**

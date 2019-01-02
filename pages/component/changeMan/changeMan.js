@@ -11,6 +11,12 @@ Component({
    */
   data: {
     visible1: false,
+    active:"#1498d9",
+    notActive:"#fff"
+  },
+
+  changeMan:function({detail}){
+    console.log("点击后的",detail)
   },
 
   /**

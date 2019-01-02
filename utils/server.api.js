@@ -1,6 +1,6 @@
 const domain = "https://www.easy-mock.com/mock/";
 const api = "5c26ecdc1e2c8e78ee4efbd9/hospital/";
-const url ="http://m8u5rn.natappfree.cc/"
+const url ="http://jackxiong.imwork.net:23026/"
 const type = {
   user:"UserManager/",
   data: "Information/"
@@ -8,7 +8,7 @@ const type = {
 
 //绑定卡
 const getRegisterUrl = function () {
-  return url + type.user +"BindCard.CreateUser.Modify";
+  return url + type.user +"Micro/Patient/Save";
 }
 
 //获取人员信息
@@ -71,6 +71,11 @@ const getHospitalIntro = function(){
   return domain + api + "hospitalIntro";
 }
 
+//获取医院的简介
+const getPayUrl = function () {
+  return "https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=5";
+}
+
 
 
 
@@ -98,6 +103,7 @@ module.exports = {
   getinHPayLogUrl: getinHPayLogUrl,
   getDepositLogUrl: getDepositLogUrl,
   getHospitalIntro: getHospitalIntro,
+  getPayUrl: getPayUrl,
   queryRelatives2: queryRelatives2,
   getTableList2: getTableList2
 }
