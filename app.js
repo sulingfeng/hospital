@@ -29,6 +29,13 @@ App({
           }
         })
 
+        wx.getUserInfo({
+          success: function(res) {
+            console.log("系统熊熊",res)
+          },
+        })
+
+        
 
 
       }
