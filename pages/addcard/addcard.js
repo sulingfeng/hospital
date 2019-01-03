@@ -11,8 +11,19 @@ Page({
     name: '',
     card: '',
     phone: '',
-    addrs: ''
-
+    addrs: '',
+    fruit: [{
+      id: 0,
+      name: '女生',
+    }, {
+      id: 1,
+      name: '男生'
+    }],
+    position: 'left',
+    animal: '熊猫',
+    sex:"",
+    checked: false,
+    disabled: false,
   },
 
   //姓名验证发放
@@ -54,31 +65,47 @@ Page({
   //地址验证发放
   addrVerifyFun: function ({ detail }) {
     var addrs = detail.detail.value
-    var that = this;
-    console.log("地址",addrs)
     if (addrs == undefined || addrs == "" || addrs == null) {
       $Message({
         content: "详细地址不能为空"
       });
     } else {
-      this.addrs = addrs
+      console.log("地址",addrs);
+      this.addrs = addrs;
     }
   },
 
+  //获取性别
+  handleFruitChange({ detail = {} }) {
+    this.sex = detail.value
+  },
+
+  handleDisabled() {
+    this.setData({
+      disabled: !this.data.disabled
+    });
+  },
+
   handleClick:function(){
-    console.log("查看请求参数",this.name,this.card)
+    var sex = this.sex === "女生"?"0":"1";
+    var obj = {
+      WID: app.globalData.openid,
+      NAME: this.name,
+      IDCARD: this.card,
+      SEX: sex,
+      PHONE: this.phone,
+      ADDRESS: this.addrs,
+      DEFAULT: 0
+    }
+    console.log("请求参数", JSON.stringify(obj), "连接", urlApi.getRegisterUrl())
     wx.request({
       url: urlApi.getRegisterUrl(),
       method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: {
-        XM: this.name,
-        ZJH: this.card,
-        ZJLX:"SFZ",
-        SJH: this.phone,
-        addr: this.addrs
+      data:{
+        BODY: JSON.stringify(obj)
       },
       success: function (reponse) {
         console.log("绑定卡", reponse)

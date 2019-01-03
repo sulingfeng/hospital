@@ -86,6 +86,8 @@
     "i-collapse": "iview/collapse/index",
     "i-collapse-item": "iview/collapse-item/index",
     "i-modal": "iview/modal/index",
-    "i-action-sheet": "iview/action-sheet/index"
+    "i-action-sheet": "iview/action-sheet/index",
+    "i-radio-group": "iview/radio-group/index",
+    "i-radio": "iview/radio/index"
   }
 }

@@ -1,7 +1,11 @@
 // pages/reserve/reserve.js
 import initCalendar from '../component/calendar/calendar/index';
-import { setTodoLabels } from '../component/calendar/calendar/index';
-import { switchView } from '../component/calendar/calendar/index';
+import {
+  setTodoLabels
+} from '../component/calendar/calendar/index';
+import {
+  switchView
+} from '../component/calendar/calendar/index';
 const urlApi = require('../../utils/server.api.js')
 Page({
 
@@ -13,51 +17,112 @@ Page({
     doctors: [],
     current: 'tab1',
     current_scroll: 'tab1',
-    show:"show",
+    show: "show",
+    KSID: ""
+  },
+
+  //获取医生列表
+  getDoctorList: function() {
+    var that = this;
+    wx.request({
+      url: urlApi.queryRelatives(),
+      method: "get",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {},
+      success: function(reponse) {
+        var doctorArr = new Array();
+        var list = reponse.data.DATAPARAM.ITEM;
+        if (list.length > 0) {
+          list.map(i => {
+            var str = i.KSID.toString();
+            if (str.indexOf(",") != -1) {
+              var arr = str.split(",");
+              if (that.isInArray(arr, that.data.KSID)) {
+                doctorArr.push(i);
+              }
+            } else {
+              if (i.KSID === that.data.KSID) {
+                doctorArr.push(i);
+              }
+            }
+          })
+        }
+        that.doctorDataAdd(doctorArr);
+      }
+    })
+  },
+
+  isInArray: function(arr, value) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == value) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  doctorDataAdd: function (doctorArr) {
+    doctorArr.map(i => {
+      i.position="主治医师",
+      i.resume= "清华大学",
+      i.field= "脑科技术脑科技术一流脑科技术一流一流",
+      i.imageurl= "../../images/doctor.jpg",
+      i.price= "10",
+      i.type= 0
+    })
+    console.log("列表", this.data.doctors)
+    this.setData({
+      doctors: doctorArr,
+      show: "hidden"
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log("监听页面加载",options.id)
-    this.doctorList(Number(options.id))
+  onLoad: function(options) {
+    this.data.KSID = options.id
+    this.getDoctorList();
+    //this.doctorList();
+    //this.doctorList(Number(options.id))
   },
 
-  switchView: function () {
+  switchView: function() {
     console.log("预约方式切换")
     switchView();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     const conf = {
       multi: false, // 是否开启多选,
       disablePastDay: true, // 是否禁选过去的日期
       /**
        * 初始化日历时指定默认选中日期，如：'2018-3-6' 或 '2018-03-06'
        * 注意：若想初始化时不默认选中当天，则将该值配置为除 undefined 以外的其他非值即可，如：空字符串, 0 ,false等。
-      */
+       */
       noDefault: true, // 初始化后是否自动选中当天日期，优先级高于defaultDay配置，两者请勿一起配置
       /**
        * 选择日期后执行的事件
        * @param { object } currentSelect 当前点击的日期
        * @param { array } allSelectedDays 选择的所有日期（当mulit为true时，才有allSelectedDays参数）
        */
-      afterTapDay: (currentSelect, allSelectedDays) => { },
+      afterTapDay: (currentSelect, allSelectedDays) => {},
       /**
        * 当改变月份时触发
        * @param { object } current 当前年月
        * @param { object } next 切换后的年月
        */
-      whenChangeMonth: (current, next) => { },
+      whenChangeMonth: (current, next) => {},
       /**
        * 日期点击事件（此事件会完全接管点击事件）
        * @param { object } currentSelect 当前点击的日期
        * @param { object } event 日期点击事件对象
        */
-      onTapDay(currentSelect, event) { },
+      onTapDay(currentSelect, event) {},
       /**
        * 日历初次渲染完成后触发事件，如设置事件标记
        * @param { object } ctx 当前页面
@@ -86,18 +151,18 @@ Page({
   },
 
   //按人亲求医生列表
-  doctorList: function (KSID,SJJG){
+  doctorList: function(KSID, SJJG) {
     var that = this;
     wx.request({
-      url: urlApi.queryRelatives(),
+      url: urlApi.queryRelatives2("doctor", "date"),
       data: {
         KSID: KSID,
-        HZDW:"巨浪微信"
+        HZDW: "巨浪微信"
       },
       header: {
         'content-type': 'application/json'
       },
-      success: function (response) {
+      success: function(response) {
         that.data.doctors = response.data.doctors.map(doctor => {
           return {
             id: doctor.id,
@@ -112,24 +177,25 @@ Page({
         console.log("列表", that.data.doctors)
         that.setData({
           doctors: that.data.doctors,
-          show:"hidden"
+          show: "hidden"
         });
+        console.log("列表", that.data.doctors)
       }
     })
   },
 
   //按日期请求医生列表
-  doctorListDate: function (date) {
+  doctorListDate: function(date) {
     var that = this;
     wx.request({
-      url: urlApi.queryRelatives(),
+      url: urlApi.queryRelatives2(),
       data: {
         date: date
       },
       header: {
         'content-type': 'application/json'
       },
-      success: function (response) {
+      success: function(response) {
         that.data.doctors = response.data.doctors.map(doctor => {
           return {
             id: doctor.id,
@@ -139,8 +205,8 @@ Page({
             resume: doctor.resume,
             field: doctor.field,
             imageurl: doctor.imageurl,
-            type:"有号",
-            price:"￥"+doctor.price
+            type: "有号",
+            price: "￥" + doctor.price
           }
         });
         that.setData({
@@ -151,20 +217,24 @@ Page({
     })
   },
 
-  handleChange({ detail }) {
+  handleChange({
+    detail
+  }) {
     var type = detail.key;
-    if(type === "1"){
-      this.doctorList();
-    }else if(type === "0"){
-      this.doctorListDate();
+    if (type === "1") {
+      this.getDoctorList();
+    } else if (type === "0") {
+      this.getDoctorList();
     }
-    
+
     this.setData({
       current: detail.key
     });
   },
 
-  handleChangeScroll({ detail }) {
+  handleChangeScroll({
+    detail
+  }) {
     this.setData({
       current_scroll: detail.key
     });
@@ -173,50 +243,50 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //页面跳转
-  toShowDoctorDetails: function (e) {
-    console.log("选中的医生",e);
+  toShowDoctorDetails: function(e) {
+    console.log("选中的医生", e);
     wx.navigateTo({
-      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor)
-        + '&departmentName=' + this.data.department.name
+      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor) +
+        '&departmentName=' + this.data.department.name
     })
   }
 })

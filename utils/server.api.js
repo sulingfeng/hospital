@@ -1,6 +1,6 @@
 const domain = "https://www.easy-mock.com/mock/";
 const api = "5c26ecdc1e2c8e78ee4efbd9/hospital/";
-const url ="http://jackxiong.imwork.net:23026/"
+const url ="http://frpgz1.idcfengye.com:10038/"
 const type = {
   user:"UserManager/",
   data: "Information/"
@@ -8,7 +8,7 @@ const type = {
 
 //绑定卡
 const getRegisterUrl = function () {
-  return url + type.user +"Micro/Patient/Save";
+  return url  +"Micro/Patient/Save";
 }
 
 //获取人员信息
@@ -28,7 +28,7 @@ const getTableList2 = function (tableName) {
 
 //医生列表
 const queryRelatives = function (name, id) {
-  return url + type.data + "Register.SignalSource.Query";//domain + api + 'table/' + name + '/relatives/' + id;
+  return url + type.data + "Basic.Doctor.Query";//domain + api + 'table/' + name + '/relatives/' + id;
 }
 
 //医生列表2

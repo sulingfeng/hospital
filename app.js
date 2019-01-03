@@ -5,12 +5,12 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    var that = this;
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log("登录成功",res)
         wx.request({
           //获取openid接口  
           url: 'https://api.weixin.qq.com/sns/jscode2session',
@@ -19,25 +19,13 @@ App({
             secret:"e4e60e136c6cb255e7c65819b91e30d7",
             js_code: res.code,
             grant_type:'authorization_code'
-
           },
           method: 'GET',
           success: function (res) {
-            console.log("openId获取成", res)
-
-
+            console.log("openId获取成", res.data.openid)
+            that.globalData.openid = res.data.openid;
           }
         })
-
-        wx.getUserInfo({
-          success: function(res) {
-            console.log("系统熊熊",res)
-          },
-        })
-
-        
-
-
       }
     })
     // 获取用户信息
@@ -49,8 +37,6 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-              console.log("微信登录人",res)
-
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
