@@ -1,5 +1,5 @@
 <view class='panel-m20'>
-  <view class="personInfoTop">
+  <view class="personInfoTop {{show}}">
     <i-button bindtap="goAddPanson">初次使用，请添加住院人</i-button>
   </view>
   <view class="serverWrapper">

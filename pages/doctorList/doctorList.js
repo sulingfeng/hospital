@@ -14,13 +14,72 @@ Page({
     current: 'tab1',
     current_scroll: 'tab1',
     show:"show",
+    KSID:""
+  },
+
+  //获取医生列表
+  getDoctorList: function () {
+    var that = this;
+    wx.request({
+      url: urlApi.queryRelatives(),
+      method: "get",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {},
+      success: function (reponse) {
+        var doctorArr = new Array();
+        var list = reponse.data.DATAPARAM.GROUP.HBLIST.HB;
+        if (list.length > 0) {
+          list.map(i => {
+            var str = i.KSID.toString();
+            if (str.indexOf(",") != -1) {
+              var arr = str.split(",");
+              if (that.isInArray(arr, that.data.KSID)) {
+                doctorArr.push(i);
+              }
+            } else {
+              console.log("所有的医生", Number(i.KSID))
+              if (Number(i.KSID) == that.data.KSID) {
+                doctorArr.push(i);
+              }
+            }
+          })
+        }
+        that.doctorDataAdd(doctorArr);
+      }
+    })
+  },
+
+  isInArray: function (arr, value) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == value) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  doctorDataAdd: function (doctorArr) {
+    doctorArr.map(i => {
+      i.imageurl = "../../images/doctor.jpg",
+        i.price = "10",
+        i.type = 0
+    })
+    this.setData({
+      doctors: doctorArr,
+      show: "hidden"
+    });
+    console.log("列表", this.data.doctors)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.doctorList(Number(options.id))
+    console.log("医生列表",options)
+    this.data.KSID = Number(options.id)
+    this.getDoctorList()
   },
 
   /**

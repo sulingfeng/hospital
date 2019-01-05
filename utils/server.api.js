@@ -85,7 +85,7 @@ const getScikList = function () {
 
 //获取支付信息
 const getPayInfo = function () {
-  return "http://2hfis9.natappfree.cc/Weixin/Pay/Registration";
+  return url + "Weixin/Pay/Registration";
 }
 
 //根据微信的openId获取就诊人的列表

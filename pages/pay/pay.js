@@ -52,7 +52,7 @@ Page({
   WXPay: function() {
     var that = this;
    
-    return;
+    
     wx.requestPayment({
       "appId": this.data.appId,
       "timeStamp": this.data.timeStamp,
@@ -68,7 +68,7 @@ Page({
           complete: function() {
             url = escape(url + "&resultCode=SUCCESS");
             wx.redirectTo({
-              url: "/pages/view/view?url=" + url + "&fnName=" + fnName
+              url: "/pages/home/home?url=" + url + "&fnName=" + fnName
             })
           }
         })
