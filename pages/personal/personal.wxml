@@ -5,9 +5,10 @@
     <view class='userAvatar'>
       <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large"></i-avatar>
     </view>
-    <view class='userName'>名字</view>
+    <view class='userName'>名字：{{sickName}}</view>
+    <view class='userName2'>就诊卡：{{sickCard}}</view>
   </view>
-  <i-panel title="">
+  <i-panel title="" class="{{show}}">
       <view style="panel-p30">
           <i-button bind:click="addVisitCard" type="ghost" size="large">初次使用，请办卡/绑卡</i-button>
       </view>

@@ -20,7 +20,6 @@
 }
 .personInfoTop>view:nth-child(2){
   float: right;
-  border: solid 1px #1498d9;
   border-radius: 20px;
   margin-right: 10px;
   color:#1498d9;

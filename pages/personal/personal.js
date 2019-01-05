@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    sickName:"",
+    sickCard:"",
+    show:"show"
   },
 
   //记录查询
@@ -23,7 +25,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    if (app.globalData.sickName == ""){
+      that.setData({
+        show:"show"
+      })
+    }else{
+      that.setData({
+        sickName: app.globalData.sickName,
+        sickCard: app.globalData.sickCard,
+        show: "hidden"
+      })
+    }
   },
 
   /**

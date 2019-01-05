@@ -13,3 +13,16 @@
   padding: 20rpx 0;
   font-size: 1rem;
 }
+.userName2{
+  padding: 20rpx 0;
+  font-size: 0.8rem;
+  color:#999;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.show{
+  display: block;
+}
+.hidden{
+  display: none;
+}

@@ -1,7 +1,8 @@
 <view class='panel-m20'>
   <view class="personInfoTop" >
     <view>苏俊凌</view>
-    <view><j-changeMan/></view>
+    <view></view>
+    <!-- <view><j-changeMan/></view> -->
     <view class='clearFloat'></view>
     <view class='seeCard'>就诊卡：465464</view>
   </view>
