@@ -22,7 +22,7 @@ Page({
   getPonsorInfo:function(){
     var that = this;
     wx.request({
-      url: urlApi.getPensorInfoUrl(),
+      url: urlApi.getScikList(),
       method: "get",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -32,13 +32,17 @@ Page({
       },
       success: function (data) {
         if(data.data.code == 0){
-          var obj =data.data;
+          var obj = data.data;
+          if(obj.data.length == 0)return;
+          console.log("就诊人列表",data);
           that.setData({
             pensorShowTop: "hidden",
             pensorShowBottom: "show",
-            pensorName: obj.data.name,
-            pensorNumber: obj.data.number*1000000000
+            pensorName: obj.data[0].name,
+            pensorNumber: obj.data[0].id
           })
+          app.globalData.sickName = that.data.pensorName;
+          app.globalData.sickCard = that.data.pensorNumber;
         }
       }
     })
@@ -81,15 +85,6 @@ Page({
     })
   },
 
-  // //切换就诊人
-  // goChangeMan: function (e) {
-  //   wx.navigateTo({
-  //     url: '/pages/changeMan/changeMan?type='
-  //   })
-  // },
-
-  
-
   //去住院日清单页面
   goDayLog: function (e) {
     wx.navigateTo({
@@ -123,7 +118,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //this.getPonsorInfo();
+    var that = this;
+    this.getPonsorInfo();
+    app.globalData.changeMan = {
+      changeMan:function(data){
+        that.setData({
+          pensorName: data.name,
+          pensorNumber: data.id
+        })
+        app.globalData.sickCard = data.id;
+      }
+    }
   },
 
   /**

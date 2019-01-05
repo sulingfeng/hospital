@@ -1,25 +1,27 @@
 // pages/reserve/reserve.js
 import initCalendar from '../component/calendar/calendar/index';
-import {
-  setTodoLabels
-} from '../component/calendar/calendar/index';
-import {
-  switchView
-} from '../component/calendar/calendar/index';
+import {setTodoLabels} from '../component/calendar/calendar/index';
+import {switchView} from '../component/calendar/calendar/index';
 const urlApi = require('../../utils/server.api.js')
+const util = require('../../utils/util.js')
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    dateShow:"show",
     department: {},
     doctors: [],
     current: 'tab1',
     current_scroll: 'tab1',
     show: "show",
-    KSID: ""
+    KSID: "",
+    day: util.formatTime2(new Date())
   },
+
+
 
   //获取医生列表
   getDoctorList: function() {
@@ -33,7 +35,7 @@ Page({
       data: {},
       success: function(reponse) {
         var doctorArr = new Array();
-        var list = reponse.data.DATAPARAM.ITEM;
+        var list = reponse.data.DATAPARAM.GROUP.HBLIST.HB;
         if (list.length > 0) {
           list.map(i => {
             var str = i.KSID.toString();
@@ -43,7 +45,7 @@ Page({
                 doctorArr.push(i);
               }
             } else {
-              if (i.KSID === that.data.KSID) {
+              if (Number(i.KSID) == that.data.KSID) {
                 doctorArr.push(i);
               }
             }
@@ -65,24 +67,31 @@ Page({
 
   doctorDataAdd: function (doctorArr) {
     doctorArr.map(i => {
-      i.position="主治医师",
-      i.resume= "清华大学",
-      i.field= "脑科技术脑科技术一流脑科技术一流一流",
       i.imageurl= "../../images/doctor.jpg",
       i.price= "10",
       i.type= 0
     })
-    console.log("列表", this.data.doctors)
     this.setData({
       doctors: doctorArr,
       show: "hidden"
     });
+    console.log("列表", this.data.doctors)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;  
+    app.globalData.dayFun = {
+      dayFun:function(data){
+        console.log("1111111",data)
+        var now = data.idx + 1
+        that.setData({
+          day: data.days[0].year + "-" + data.days[0].month + "-" + now
+        })
+      }
+    }
     this.data.KSID = options.id
     this.getDoctorList();
     //this.doctorList();
@@ -217,13 +226,18 @@ Page({
     })
   },
 
-  handleChange({
-    detail
-  }) {
+  handleChange({detail}) {
     var type = detail.key;
-    if (type === "1") {
+    console.log("选项", type, switchView)
+    if (type === "tab1") {
+      this.setData({
+        dateShow: "show"
+      })
       this.getDoctorList();
-    } else if (type === "0") {
+    } else if (type === "tab2") {
+      this.setData({
+        dateShow:"hidden"
+      })
       this.getDoctorList();
     }
 
@@ -276,6 +290,17 @@ Page({
   },
 
   /**
+  * 组件的方法列表
+  */
+  methods: {
+    getfather() {
+      // this.triggerEvent('parent', '子组件的数据')
+      // var header = this.selectComponent('#header')
+      console.log("子调用父",header.data.msg)
+    }
+  },
+
+  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
@@ -283,10 +308,8 @@ Page({
   },
   //页面跳转
   toShowDoctorDetails: function(e) {
-    console.log("选中的医生", e);
     wx.navigateTo({
-      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor) +
-        '&departmentName=' + this.data.department.name
+      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor)
     })
   }
 })

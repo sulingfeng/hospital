@@ -1,5 +1,6 @@
 let info;
 let currentPage = {};
+const app = getApp();
 
 function getSystemInfo() {
   if (info) return info;
@@ -417,8 +418,11 @@ const conf = {
     };
     if (multi) {
       conf.whenMulitSelect.call(this, opts);
+     
     } else {
+      app.globalData.dayFun.dayFun(opts);
       conf.whenSingleSelect.call(this, opts);
+     
     }
   },
   /**

@@ -1,9 +1,11 @@
+const urlApi = require('../../../utils/server.api.js')
+const app = getApp();
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    
   },
 
   /**
@@ -12,17 +14,59 @@ Component({
   data: {
     visible1: false,
     active:"#1498d9",
-    notActive:"#fff"
-  },
-
-  changeMan:function({detail}){
-    console.log("点击后的",detail)
+    notActive:"#fff",
+    sickList:[]
+    
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+    changeMan: function (e) {
+      var id = e.currentTarget.dataset.id;
+      var arr = this.data.sickList;
+      for (var i in arr){
+        if (id == arr[i].id){
+          arr[i].color = this.data.active
+          app.globalData.changeMan.changeMan(arr[i])
+        }else{
+          arr[i].color = this.data.notActive
+        }
+      }
+      console.log(arr)
+      this.setData({
+        sickList: arr,
+        visible2: false
+      })
+      
+    },
+
+    sickList: function () {
+      var that = this;
+      wx.request({
+        url: urlApi.getScikList(),
+        method: "get",
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {},
+        success: function (reponse) {
+           var arr = reponse.data.data;
+           for(var i in arr){
+             if (arr[i].id == app.globalData.sickCard){
+               arr[i].color = that.data.active
+             }else{
+               arr[i].color = that.data.notActive
+             }
+           }
+          that.setData({
+            visible2: true,
+            sickList: arr
+          });
+        }
+      })
+    },
     /**
      * 搜索结果类别
      */
@@ -33,9 +77,7 @@ Component({
     },
 
     handleOpen2:function() {
-      this.setData({
-        visible2: true
-      });
+      this.sickList();
     },
 
     handleCancel2 () {

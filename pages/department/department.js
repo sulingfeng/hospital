@@ -22,7 +22,7 @@ Page({
         'content-type': 'application/json'
       },
       success: function (response) {
-        var data = response.data.DATAPARAM.ITEM;
+        var data = response.data.DATAPARAM.KSLIST.KS;
 
         if (data instanceof Array) {
           // 成功返回 - 初始化

@@ -13,14 +13,23 @@ Page({
     paySign: "",
     signType: "",
     timeStamp: "",
+    doctor: "",
+    doctorId: "",
+    date: "",
+    price: "",
+    departments: "",
+    sickName:"",
+    sickCard:""
   },
 
   payInfo: function() {
     var that = this;
-    var url = "http://2hfis9.natappfree.cc/Weixin/Pay/Registration?OpenId=oDfEV0e823WozcpHu3UvocPc9-OY"
     wx.request({
-      url: url, //仅为示例，并非真实的接口地址
+      url: urlApi.getPayInfo() + "?OpenId=" + app.globalData.openid, //仅为示例，并非真实的接口地址
       method: "POST",
+      data:{
+        OpenId:app.globalData.openid
+      },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
@@ -39,9 +48,11 @@ Page({
       }
     })
   },
-
+ 
   WXPay: function() {
     var that = this;
+   
+    return;
     wx.requestPayment({
       "appId": this.data.appId,
       "timeStamp": this.data.timeStamp,
@@ -78,11 +89,25 @@ Page({
     })
   },
 
+  payDom: function (options){
+    console.log(app.globalData)
+    this.setData({
+      doctor: options.doctor,
+      doctorId: options.doctorId,
+      date: options.date,
+      price: options.price,
+      departments: options.departments,
+      sickName: app.globalData.sickName,
+      sickCard: app.globalData.sickCard,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.payInfo()
+    this.payDom(JSON.parse(options.info));
+    this.payInfo();
   },
 
   /**

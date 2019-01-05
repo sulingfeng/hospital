@@ -4,8 +4,8 @@
   <view class='doctorTp'>
     <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" shape="square"></i-avatar>
     <view class='doctorMd'>
-      <view class='doctorName'>医生名称</view>
-      <view>所属科室</view>
+      <view class='doctorName'>{{doctor}}</view>
+      <view>{{departments}}</view>
     </view>
     <view>
       <i-icon size='20' type="collection" />
@@ -13,7 +13,7 @@
     </view>
   </view>
   <view class='doctorBt'>
-  擅长是是是
+  {{position}}
   </view>
 </view>
 <view>
@@ -25,13 +25,13 @@
 
 <view class='{{registration}}'>
   <view class='flexRow'>
-    <view>2019-12-24</view>
+    <view>{{date}}</view>
     <view><i-button size="small" bind:click="switchView">切换日期</i-button></view>
   </view>
   <view class="calendar-wrap">
     <template is="calendar" data="{{...calendar}}" />
     <i-cell-group>
-      <i-cell bindtap='toPay' title="只显示箭头" value="￥3" is-link></i-cell>
+      <i-cell bindtap='toPay' title="只显示箭头" value="{{price}}" is-link></i-cell>
     </i-cell-group>
   </view>
 </view>

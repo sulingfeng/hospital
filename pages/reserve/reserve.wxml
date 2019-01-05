@@ -3,18 +3,18 @@
 
 <view>
   <view class='flexRow'>
-    <view>2019-12-24</view>
+    <view>{{day}}</view>
     <view id='bookingWrapper'>
       <!-- <i-button type="primary" bind:click="switchView"  size="small">按日期预约</i-button>
       <i-button bind:click="doctorList" size="small">按医生预约</i-button> -->
       <i-tabs current="{{ current }}" bindchange="handleChange">
-        <i-tab key="0" bind:click="switchView" title="按日期预约"></i-tab>
-        <i-tab key="1" title="按医生预约"></i-tab>
+        <i-tab key="tab1" title="按日期预约" bind:click="switchView"></i-tab>
+        <i-tab key="tab2" title="按医生预约"></i-tab>
       </i-tabs>
 
     </view>
   </view>
-  <view class="calendar-wrap">
+  <view class="calendar-wrap" class="{{dateShow}}" bind:myevent="getfather">
     <template is="calendar" data="{{...calendar}}" />
   </view>
   <view>
@@ -25,13 +25,13 @@
             </view>
             <view class='list-part-right'>
                 <view>
-                  <text class='doctor-name'>{{ item.XM }}</text> 
+                  <text class='doctor-name'>{{ item.YS }}</text> 
                   <text class="price {{show}}">{{item.price}}</text>
                   <text class="haveNumber {{show}}">{{item.type}}</text>
                 </view>
                 <view class='list-part-bottom'>
-                  <label>{{ item.position }}</label>
-                  <text class='doctor-field'>{{ item.field }}</text>
+                  <label>{{ item.ZC }}</label>
+                  <text class='doctor-field'>{{ item.HYMC }}</text>
                 </view>
             </view>
         </view>

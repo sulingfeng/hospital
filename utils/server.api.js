@@ -3,7 +3,9 @@ const api = "5c26ecdc1e2c8e78ee4efbd9/hospital/";
 const url ="http://frpgz1.idcfengye.com:10038/"
 const type = {
   user:"UserManager/",
-  data: "Information/"
+  data: "Information/",
+  MZ:"OutPatient/"
+
 } 
 
 //绑定卡
@@ -18,7 +20,7 @@ const getPensorInfoUrl = function () {
 
 //获取科室信息
 const getTableList = function (tableName) {
-  return url + type.data + "Basic.Depart.Query"//domain + api + 'table/' + tableName;"OutPatient/Register.Depart.Query"
+  return url + type.MZ + "Register.Depart.Query"//domain + api + 'table/' + tableName;"OutPatient/Register.Depart.Query"
 }
 
 //获取科室信息
@@ -28,7 +30,7 @@ const getTableList2 = function (tableName) {
 
 //医生列表
 const queryRelatives = function (name, id) {
-  return url + type.data + "Basic.Doctor.Query";//domain + api + 'table/' + name + '/relatives/' + id;
+  return url + type.MZ + "Register.SignalSource.Query";//"Basic.Doctor.Query";//domain + api + 'table/' + name + '/relatives/' + id;
 }
 
 //医生列表2
@@ -76,6 +78,21 @@ const getPayUrl = function () {
   return "https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=5";
 }
 
+//获取就诊人列表
+const getScikList = function () {
+  return domain + api + "sick";
+}
+
+//获取支付信息
+const getPayInfo = function () {
+  return "http://2hfis9.natappfree.cc/Weixin/Pay/Registration";
+}
+
+//根据微信的openId获取就诊人的列表
+const getScikList2 = function () {
+  return url + "Micro/Patient/Array";
+}
+
 
 
 
@@ -104,6 +121,9 @@ module.exports = {
   getDepositLogUrl: getDepositLogUrl,
   getHospitalIntro: getHospitalIntro,
   getPayUrl: getPayUrl,
+  getPayInfo: getPayInfo,
+  getScikList: getScikList,
+  getScikList2: getScikList2,
   queryRelatives2: queryRelatives2,
   getTableList2: getTableList2
 }

@@ -2,6 +2,7 @@
 import initCalendar from '../component/calendar/calendar/index';
 import { setTodoLabels } from '../component/calendar/calendar/index';
 import { switchView } from '../component/calendar/calendar/index';
+
 Page({
 
   /**
@@ -10,7 +11,13 @@ Page({
   data: {
     current:'tab1',
     introduce: "hidden",
-    registration: "show"
+    registration: "show",
+    date:"2019-1-5",
+    doctor:"",
+    doctorId:"",
+    departments:"",
+    position:"",
+    price:""
   },
 
   handleChange: function({ detail }) {
@@ -26,7 +33,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var doctor = JSON.parse(options.doctor);
+    this.setData({
+      doctor: doctor.YS,
+      doctorId:doctor.YSID,
+      departments: doctor.KSMC,
+      position: doctor.ZC,
+      price: doctor.price||"3"
+    })
+    console.log("选中的医生", doctor) ;
   },
 
   /**
@@ -146,11 +161,15 @@ Page({
 
   //页面跳转
   toPay: function (e) {
-    console.log("选中的医生", e);
+    var info = {
+      doctor: this.data.doctor,
+      doctorId: this.data.doctorId,
+      date: this.data.date,
+      price: this.data.price,
+      departments: this.data.departments
+    }
     wx.navigateTo({
-      // url: '/pages/pay/pay?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor)
-      //   + '&departmentName=' + this.data.department.name
-      url: '/pages/pay/pay'
+      url: '/pages/pay/pay?info=' + JSON.stringify(info)
     })
   }
 })

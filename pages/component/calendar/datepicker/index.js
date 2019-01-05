@@ -335,6 +335,7 @@ const conf = {
    */
   tapDayItem(e) {
     const { idx, disable } = e.currentTarget.dataset;
+    console.log("具体日期",e)
     if (disable) return;
     const config = this.config;
     const { afterTapDay, onTapDay } = config;
