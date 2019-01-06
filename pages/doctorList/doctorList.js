@@ -42,7 +42,8 @@ Page({
               console.log("所有的医生", Number(i.KSID))
               if (Number(i.KSID) == that.data.KSID) {
                 doctorArr.push(i);
-              }
+    
+               }
             }
           })
         }

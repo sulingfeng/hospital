@@ -108,7 +108,10 @@ Page({
         BODY: JSON.stringify(obj)
       },
       success: function (reponse) {
-        console.log("绑定卡", reponse)
+        console.log("绑定卡", reponse)  
+
+      
+      
       }
     })
   },
