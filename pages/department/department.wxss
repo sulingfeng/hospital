@@ -12,10 +12,11 @@ page, .container1 {
 .superior,.subordinate{
     width: 50%;
     padding: 1rem 0;
+    padding-top:0;
 }
 
 .subordinate{
-    background-color: #CCCCCC;
+    background-color: #e2e2e2;
 }
 
 .superior-item,.subordinate-item{

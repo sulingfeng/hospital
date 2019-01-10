@@ -7,7 +7,7 @@
     <view slot="header" style="padding: 16px">
       <view style="color: #444;font-size: 16px">切换就诊卡</view>
       <i-cell-group>
-        <i-cell wx:for="{{sickList}}" wx:key="{{item.id}}" title="{{item.name}}" value="就诊卡：{{item.id}}" data-id="{{item.id}}" bindtap="changeMan">
+        <i-cell wx:for="{{sickList}}" wx:key="{{item.PATIENT_ID}}" title="{{item.NAME}}" value="就诊卡：{{item.PATIENT_ID}}" data-id="{{item.PATIENT_ID}}" bindtap="changeMan">
           <i-icon slot="icon" type="right" size="28" color="{{item.color}}" />
         </i-cell>
       </i-cell-group>

@@ -22,7 +22,7 @@ Page({
   getPonsorInfo:function(){
     var that = this;
     wx.request({
-      url: urlApi.getScikList(),
+      url: urlApi.getScikList2() + "?WID=" + app.globalData.openid,
       method: "get",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -31,15 +31,15 @@ Page({
         
       },
       success: function (data) {
-        if(data.data.code == 0){
-          var obj = data.data;
-          if(obj.data.length == 0)return;
-          console.log("就诊人列表",data);
+        console.log("就诊人列表", data);
+        if (data.data.LIST.length > 0){
+          var obj = data.data.LIST;
+          if (obj.length == 0)return;
           that.setData({
             pensorShowTop: "hidden",
             pensorShowBottom: "show",
-            pensorName: obj.data[0].name,
-            pensorNumber: obj.data[0].id
+            pensorName: obj[0].NAME,
+            pensorNumber: obj[0].PATIENT_ID
           })
           app.globalData.sickName = that.data.pensorName;
           app.globalData.sickCard = that.data.pensorNumber;
@@ -119,7 +119,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    this.getPonsorInfo();
+    
     app.globalData.changeMan = {
       changeMan:function(data){
         that.setData({
@@ -135,7 +135,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.getPonsorInfo();
   },
 
   /**

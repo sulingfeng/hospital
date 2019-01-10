@@ -45,14 +45,15 @@ Component({
     sickList: function () {
       var that = this;
       wx.request({
-        url: urlApi.getScikList(),
+        url: urlApi.getScikList2() + "?WID=" + app.globalData.openid,
         method: "get",
         header: {
           'content-type': 'application/x-www-form-urlencoded'
         },
         data: {},
         success: function (reponse) {
-           var arr = reponse.data.data;
+           console.log("通过微信id获取列表",reponse)
+          var arr = reponse.data.LIST;
            for(var i in arr){
              if (arr[i].id == app.globalData.sickCard){
                arr[i].color = that.data.active
