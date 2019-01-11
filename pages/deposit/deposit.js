@@ -1,18 +1,50 @@
 // pages/deposit/deposit.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    value2:"",
+    show:"show",
+    money:""
+  },
 
+  sickDataFun:function(){
+    if (app.globalData.sickName){
+      this.setData({
+        show:"show"
+      })
+    }else{
+      this.setData({
+        show: "hidden"
+      })
+    }
+  },
+
+  moneyChange: function ({ detail }){
+    var money = detail.detail.value
+    this.setData({
+      money: money
+    })
+    
+  },
+
+  handleClick: function (){
+    var info = {
+      money: this.data.money,
+    }
+    wx.navigateTo({
+      url: '/pages/MZPay/MZPay?info=' + JSON.stringify(info)
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.sickDataFun();
   },
 
   /**

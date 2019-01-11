@@ -1,12 +1,13 @@
 <view class='panel-m20'>
   <view class="personInfoTop" >
-    <view>苏俊凌</view>
+    <view>{{sickName}}</view>
     <view></view>
     <!-- <view><j-changeMan/></view> -->
     <view class='clearFloat'></view>
-    <view class='seeCard'>就诊卡：465464</view>
+    <view class='seeCard'>就诊卡：{{sickCard}}</view>
   </view>
-  <view class='notPayTitle'>{{title}}</view>  
+  <view class='notPayTitle'>{{title}}</view>
+  <view class="notLog {{show}}">您没有相关的记录</view>  
   <view>
     <view class="wrapper" wx:for="{{notPayData}}" wx:key="{{ item.id }}">
       <view>

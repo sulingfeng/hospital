@@ -2,17 +2,17 @@
 
 <view class='panel-m20'>
 
-  <i-panel title="">
+  <i-panel title="" class="{{show}}">
       <view class='panel-p30'>
         <i-button bind:click="addVisitCard" type="ghost" size="large">初次使用，请添加住院人</i-button>
       </view>
   </i-panel>
 
   <i-panel title="">
-      <view class='panel-p10'>
+      <view class='panel-p10 centent'>
         <view class='flexBody'>
-          <view class='flexLeft'>选择充值金额</view>
-          <view class='flexRight'>余额<view class='momey'>￥0.00</view></view>
+          <view class='flexLeft choose'>选择充值金额</view>
+          <!-- <view class='flexRight'>余额<view class='momey'>￥0.00</view></view> -->
         </view>
         <i-row>
             <i-col span="8" i-class="col-class"><i-button bind:click="handleClick" type="primary">￥100</i-button></i-col>
@@ -21,12 +21,15 @@
         </i-row>
         <i-row>
             <i-col span="8" i-class="col-class"><i-button bind:click="handleClick">￥1000</i-button></i-col>
-            <i-col span="16" i-class="col-class"><i-input value="" type="number" placeholder="请输整数金额" /></i-col>
+            <i-col span="16" i-class="col-class">
+            <i-input value="{{money}}" type="number" bind:blur="moneyChange" placeholder="请输整数金额" maxlength="50" />
+            
+            </i-col>
         </i-row>
       </view>
   </i-panel>
 
   <view class='panel-p30'>
-    <i-button bind:click="handleClick" type="primary" disabled>充值</i-button>
+    <i-button bind:click="handleClick" type="primary">确定</i-button>
   </view>
 </view>  

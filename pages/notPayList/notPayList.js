@@ -1,5 +1,6 @@
 // pages/doctor/doctor.js
 const urlApi = require('../../utils/server.api.js')
+var app = getApp();
 Page({
 
   /**
@@ -15,12 +16,16 @@ Page({
   getNotPayList:function(){
     const that = this;
     wx.request({
-      url: urlApi.getNotPayListUrl(),
-      method: "get",
+      url: urlApi.getNotPayListUrl2(),
+      method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: {},
+      data: {
+        BRID: 46288,//app.globalData.BRID,
+        CXTS: "",
+        JSKLB: ""
+      },
       success: function (reponse) {
         if (reponse.data.code === 0){
           that.setData({

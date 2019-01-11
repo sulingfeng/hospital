@@ -5,7 +5,7 @@
   color: #999;
 }
 .flexLeft{
-  font-size: .75rem;
+  font-size: 1rem;
 }
 .flexRight{
   font-size: .5rem;
@@ -13,4 +13,16 @@
 .momey{
   font-size: .75rem;
   color: #008e76
+}
+.show{
+  display: block;
+}
+.hidden{
+  display: none;
+}
+.centent{
+  padding-top: 20px;
+}
+.choose{
+  margin-left: 10px;
 }

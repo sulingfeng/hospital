@@ -22,16 +22,15 @@ Page({
   getPonsorInfo:function(){
     var that = this;
     wx.request({
-      url: urlApi.getScikList2() + "?WID=" + app.globalData.openid,
-      method: "get",
+      url: urlApi.getScikList2(),
+      method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        
+         WID:app.globalData.openid
       },
       success: function (data) {
-        console.log("就诊人列表", data);
         if (data.data.LIST.length > 0){
           var obj = data.data.LIST;
           if (obj.length == 0)return;
@@ -42,6 +41,7 @@ Page({
             pensorNumber: obj[0].PATIENT_ID
           })
           app.globalData.sickName = that.data.pensorName;
+          app.globalData.BRID = obj[0].BR_ID;
           app.globalData.sickCard = that.data.pensorNumber;
         }
       }
@@ -119,14 +119,15 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    
     app.globalData.changeMan = {
       changeMan:function(data){
         that.setData({
-          pensorName: data.name,
-          pensorNumber: data.id
+          pensorName: data.NAME,
+          pensorNumber: data.PATIENT_ID
         })
-        app.globalData.sickCard = data.id;
+        app.globalData.sickName = data.NAME;
+        app.globalData.BRID= data.BR_ID;
+        app.globalData.sickCard = data.PATIENT_ID;
       }
     }
   },

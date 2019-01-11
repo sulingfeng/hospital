@@ -18,7 +18,7 @@
     <template is="calendar" data="{{...calendar}}" />
   </view>
   <view>
-    <view wx:for="{{ doctors }}" wx:key="{{ item.ID }}" data-doctor='{{ item }}' bindtap='toShowDoctorDetails' class='list-with-graphic'>
+    <view wx:for="{{ doctors }}" wx:key="{{ item.ID }}" data-HM='{{ item.HM }}' data-doctor='{{ item }}' bindtap='toShowDoctorDetails' class='list-with-graphic'>
         <view class='list-part-top'>
             <view class='list-part-left'>
                 <image src="{{ item.imageurl }}"></image>

@@ -31,7 +31,7 @@
   <view class="calendar-wrap">
     <template is="calendar" data="{{...calendar}}" />
     <i-cell-group>
-      <i-cell bindtap='toPay' title="只显示箭头" value="{{price}}" is-link></i-cell>
+      <i-cell bindtap='handleOpen2' title="只显示箭头" value="{{price}}" is-link></i-cell>
     </i-cell-group>
   </view>
 </view>
@@ -40,4 +40,29 @@
       <i-cell title="擅长" label="斯蒂芬斯蒂芬"></i-cell>
       <i-cell title="介绍" label="高房价和国际法"></i-cell>
   </i-cell-group>
+</view>
+<view>
+  <i-action-sheet visible="{{ visible2 }}" show-cancel bind:cancel="handleCancel2" bind:click="handleClickItem2" mask-closable="{{ false }}">
+    <view class='top' slot="header" style="padding: 16px">
+      <view class='list-part-top'>
+            <view class='list-part-left'>
+                <image src="../../images/doctor.jpg"></image>
+            </view>
+            <view class='list-part-right'>
+                <text class='doctor-name'>医生：{{doctor}}</text> 
+                <text class='doctor-name'>科室：妇产科</text> 
+                <text class='doctor-name'>费用：￥3.00</text> 
+                <text class='doctor-name'>事件：{{date}}</text> 
+            </view>
+        </view>
+        <view class='list-part-bottom'>
+          <text class='doctor-name1'>就诊人：王强强</text> 
+          <text class='doctor-name2'>就诊卡：{{sickCard}}</text> 
+        </view>
+        
+    </view>
+    <view class='bottomYes' bindtap='goPay' slot="header" style="padding: 16px">
+        <view style="color: #444;font-size: 16px">确定</view>
+    </view>
+  </i-action-sheet>
 </view>

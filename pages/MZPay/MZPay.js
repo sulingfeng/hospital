@@ -30,6 +30,7 @@ Page({
       data:{
         WID :app.globalData.openid,
         HISID: data.HISID,
+        MONEY:data.money,
         BRID:app.globalData.BRID
       },
       header: {
@@ -65,10 +66,10 @@ Page({
           title: '支付成功',
           icon: 'success',
           complete: function() {
+            wx.redirectTo({
+              url: "/pages/home/home"
+            })
           }
-        })
-        wx.redirectTo({
-          url: "/pages/home/home"
         })
       },
       'fail': function(res) {
@@ -88,13 +89,8 @@ Page({
   },
 
   payDom: function (options){
-    console.log(app.globalData)
     this.setData({
-      doctor: options.doctor,
-      doctorId: options.doctorId,
-      date: options.date,
-      price: options.price,
-      departments: options.departments,
+      price: options.money,
       sickName: app.globalData.sickName,
       sickCard: app.globalData.sickCard,
     })

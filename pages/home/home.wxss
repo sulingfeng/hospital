@@ -36,11 +36,21 @@
   color: #858585;
 }
 .personInfoBottom>view{
-  width: 33%;
+  
   float:left;
   text-align: center;
   padding: 10px 0;
 }
+.personInfoBottom>view:first-child{
+  width: 33%;
+}
+.personInfoBottom>view:nth-child(2){
+  width: 40%;
+}
+.personInfoBottom>view:nth-child(3){
+  width: 26%;
+}
+
 .personInfoBottom>view:nth-child(2){
   border-left: solid 1px #e5e5e5;
   border-right: solid 1px #e5e5e5;

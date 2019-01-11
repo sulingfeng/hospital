@@ -3,7 +3,6 @@ const { $Message } = require('../../iview/base/index');
 const urlApi = require('../../utils/server.api.js');
 const app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -108,13 +107,16 @@ Page({
         BODY: JSON.stringify(obj)
       },
       success: function (reponse) {
-        
-        if (reponse.data.code == 200){
+        var data = reponse.data
+        console.log("注册返回",data);
+        if (data.ERRCODE == 200){
 
+        } else if (data.ERROR.ERRCODE === "SYS_000"){
+          $Message({
+            content: '注册失败',
+            type: 'error'
+          });
         }  
-
-      
-      
       }
     })
   },

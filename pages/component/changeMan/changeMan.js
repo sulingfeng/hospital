@@ -27,19 +27,17 @@ Component({
       var id = e.currentTarget.dataset.id;
       var arr = this.data.sickList;
       for (var i in arr){
-        if (id == arr[i].id){
+        if (id == arr[i].PATIENT_ID){
           arr[i].color = this.data.active
           app.globalData.changeMan.changeMan(arr[i])
         }else{
           arr[i].color = this.data.notActive
         }
       }
-      console.log(arr)
       this.setData({
         sickList: arr,
         visible2: false
       })
-      
     },
 
     sickList: function () {
@@ -52,10 +50,9 @@ Component({
         },
         data: {},
         success: function (reponse) {
-           console.log("通过微信id获取列表",reponse)
           var arr = reponse.data.LIST;
            for(var i in arr){
-             if (arr[i].id == app.globalData.sickCard){
+             if (arr[i].PATIENT_ID == app.globalData.sickCard){
                arr[i].color = that.data.active
              }else{
                arr[i].color = that.data.notActive

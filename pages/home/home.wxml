@@ -25,7 +25,7 @@
             </view>
             <view class='personInfoBottom'>
               <view data-type="0" bindtap='registerLog'>挂号记录</view>
-              <view data-type="1" bindtap='registerLog'>缴费记录</view>
+              <view data-type="2" bindtap='registerLog'>门诊缴费记录</view>
               <view bindtap="EWM">就诊码</view>
             </view>
         </view>

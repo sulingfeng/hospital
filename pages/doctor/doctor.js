@@ -2,7 +2,8 @@
 import initCalendar from '../component/calendar/calendar/index';
 import { setTodoLabels } from '../component/calendar/calendar/index';
 import { switchView } from '../component/calendar/calendar/index';
-
+const urlApi = require('../../utils/server.api.js')
+var app = getApp();
 Page({
 
   /**
@@ -12,12 +13,60 @@ Page({
     current:'tab1',
     introduce: "hidden",
     registration: "show",
-    date:"2019-1-5",
+    date: "",
     doctor:"",
     doctorId:"",
     departments:"",
     position:"",
-    price:""
+    price:"",
+    sickList: [],
+    sickName:"",
+    sickCard:"",
+    HM:null,
+  },
+
+  handleOpen2: function () {
+    this.setData({
+      visible2: true,
+    });
+  },
+
+  handleCancel2() {
+    this.setData({
+      visible2: false
+    });
+  },
+
+  lockModify: function () {
+    var that = this;
+    wx.request({
+      url: urlApi.getLockModify(), 
+      method: "post",
+      data: {
+        HM: that.data.HM,
+        YYSJ: that.data.date,
+        CZ: 1
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        if (res.data.DATAPARAM){
+          var info = {
+            doctor: that.data.doctor,
+            doctorId: that.data.doctorId,
+            date: that.data.date,
+            price: that.data.price,
+            departments: that.data.departments,
+            HISID: res.data.DATAPARAM.HX
+          }
+          wx.navigateTo({
+            url: '/pages/pay/pay?info=' + JSON.stringify(info)
+          })
+        }
+        
+      }
+    })
   },
 
   handleChange: function({ detail }) {
@@ -39,9 +88,13 @@ Page({
       doctorId:doctor.YSID,
       departments: doctor.KSMC,
       position: doctor.ZC,
-      price: doctor.price||"3"
+      price: doctor.price||"3",
+      HM: doctor.HM,
+      date: doctor.selectTime,
+      sickName: app.globalData.sickName,
+      sickCard: app.globalData.sickCard,
     })
-    console.log("选中的医生", doctor) ;
+    console.log("选中的医生", doctor,"选中的时间", app.globalData.selectTime) ;
   },
 
   /**
@@ -160,16 +213,8 @@ Page({
   },
 
   //页面跳转
-  toPay: function (e) {
-    var info = {
-      doctor: this.data.doctor,
-      doctorId: this.data.doctorId,
-      date: this.data.date,
-      price: this.data.price,
-      departments: this.data.departments
-    }
-    wx.navigateTo({
-      url: '/pages/pay/pay?info=' + JSON.stringify(info)
-    })
+  goPay: function (e) {
+    this.lockModify();
+    
   }
 })

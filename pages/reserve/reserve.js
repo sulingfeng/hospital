@@ -90,6 +90,7 @@ Page({
         that.setData({
           day: data.days[0].year + "-" + data.days[0].month + "-" + now
         })
+               
       }
     }
     this.data.KSID = options.id
@@ -308,8 +309,10 @@ Page({
   },
   //页面跳转
   toShowDoctorDetails: function(e) {
+    var obj = e.currentTarget.dataset.doctor
+    obj.selectTime = this.data.day; 
     wx.navigateTo({
-      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor)
+      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(obj)
     })
   }
 })

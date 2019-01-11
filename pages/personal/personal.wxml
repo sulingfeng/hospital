@@ -20,9 +20,9 @@
       <i-cell data-type="0" bindtap='registerLog' title="挂号记录">
           <i-icon slot="icon" type="document" size="28" color="#1498d9" />
       </i-cell>
-      <i-cell data-type="2" bindtap='registerLog' title="门诊缴费记录">
+      <!-- <i-cell data-type="2" bindtap='registerLog' title="门诊缴费记录">
           <i-icon slot="icon" type="coupons" size="28" color="#1498d9" />
-      </i-cell>
+      </i-cell> -->
       <i-cell data-type="3" bindtap='registerLog' title="住院缴费记录">
           <i-icon slot="icon" type="task" size="28" color="#1498d9" />
       </i-cell>

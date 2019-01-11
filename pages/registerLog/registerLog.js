@@ -1,5 +1,8 @@
 // pages/doctor/doctor.js
+const { $Message } = require('../../iview/base/index');
 const urlApi = require('../../utils/server.api.js')
+const util = require('../../utils/util.js')
+var app = getApp();
 Page({
 
   /**
@@ -10,12 +13,16 @@ Page({
     title:"挂号记录",
     totalPrice:0,
     notPayData:[],
+    sickName:"",
+    sickCard:"",
+    show:"hidden"
   },
 
   //获取待付款列表
   getRegisterLog:function(type){
     const that = this;
-    var url = type == 0?urlApi.getRegisterLogUrl():
+    console.log("类类型类型类型型",type)
+    var url = type == 0 ? urlApi.getRegisterLogUrl():
               type == 1?urlApi.getPayLogUrl():
               type == 2?urlApi.getMZPayLogUrl():
               type == 3?urlApi.getinHPayLogUrl():
@@ -37,11 +44,25 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: {},
+      data: {
+        WID: app.globalData.openid, 
+        BRID: app.globalData.BRID, 
+      },
       success: function (reponse) {
-        if (reponse.data.code === 0){
+        var data = reponse.data.LIST;
+        if (data.length > 0){
+          for (var i of data) {
+            i.name = app.globalData.sickName,
+            i.detail = "就诊卡：" + app.globalData.sickCard,
+            i.price = i.MONEY/100
+            i.date = util.format(i.TIME_PAY)
+          }
           that.setData({
-            notPayData: reponse.data.data
+            notPayData: data,
+          })
+        }else{
+          that.setData({
+            show: "show",
           })
         }
       }
@@ -53,6 +74,10 @@ Page({
    */
   onLoad: function (options) {
     var type = options.type;
+    this.setData({
+      sickName: app.globalData.sickName,
+      sickCard: app.globalData.sickCard
+    })
     this.getRegisterLog(Number(type));
   },
 

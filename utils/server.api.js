@@ -43,9 +43,14 @@ const getNotPayListUrl = function () {
   return domain + api + 'notPayList';
 }
 
+//获取待付款列表
+const getNotPayListUrl2 = function () {
+  return url + type.MZ + 'Payment.PayReceipt.Query';
+}
+
 //获取挂号记录
 const getRegisterLogUrl = function () {
-  return domain + api + 'registerLog';
+  return url + 'Weixin/Pay/Registration/Array';
 }
 
 //获取支付记录
@@ -55,7 +60,7 @@ const getPayLogUrl = function () {
 
 //获取门诊缴费记录
 const getMZPayLogUrl = function () {
-  return domain + api + 'MZPayLog';
+  return url + 'Weixin/Pay/Receipt/Array'; 
 }
 
 //住院门诊缴费记录
@@ -88,9 +93,21 @@ const getPayInfo = function () {
   return url + "Weixin/Pay/Registration";
 }
 
+//获取支付信息
+const getMZPayInfo = function () {
+  return url + "Weixin/Pay/Receipt";
+}
+
+   
+
 //根据微信的openId获取就诊人的列表
 const getScikList2 = function () {
   return url + "Micro/Patient/Array";
+}
+
+//锁定号
+const getLockModify = function () {
+  return url+ type.MZ + "Register.Lock.Modify";
 }
 
 
@@ -114,6 +131,7 @@ module.exports = {
   getTableList: getTableList,
   queryRelatives:queryRelatives,
   getNotPayListUrl: getNotPayListUrl,
+  getNotPayListUrl2: getNotPayListUrl2,
   getRegisterLogUrl: getRegisterLogUrl,
   getPayLogUrl: getPayLogUrl,
   getMZPayLogUrl: getMZPayLogUrl,
@@ -123,7 +141,9 @@ module.exports = {
   getPayUrl: getPayUrl,
   getPayInfo: getPayInfo,
   getScikList: getScikList,
+  getLockModify: getLockModify,
   getScikList2: getScikList2,
   queryRelatives2: queryRelatives2,
-  getTableList2: getTableList2
+  getTableList2: getTableList2,
+  getMZPayInfo: getMZPayInfo
 }
