@@ -18,6 +18,7 @@
     "pages/reserve/reserve",
     "pages/pay/pay",
     "pages/MZPay/MZPay",
+    "pages/inHSPay/inHSPay",
     "pages/notPayList/notPayList",
     "pages/registerLog/registerLog",
     "pages/inHS/inHS",
