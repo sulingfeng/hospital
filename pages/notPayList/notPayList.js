@@ -11,27 +11,33 @@ Page({
     totalPrice:0,
     notPayData:[],
     sickName:"",
-    sickCard:""
+    sickCard:"",
+    allCheck:false
   },
 
   //获取待付款列表
   getNotPayList:function(){
     const that = this;
     wx.request({
-      url: urlApi.getNotPayListUrl(),//getNotPayListUrl2
+      url: urlApi.getNotPayListUrl2(),//getNotPayListUrl2
       method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        BRID:app.globalData.BRID,
-        CXTS: "10",
+        BRID: app.globalData.BRID,//504260
+        CXTS:"10",
         JSKLB: "巨浪微信"
       },
       success: function (reponse) {
         if (reponse.data.code === 0){
+          var arr = reponse.data.data;
+          for(var i of arr){
+            i.checked = false
+          }
+          console.log("代缴费列表",arr);
           that.setData({
-            notPayData: reponse.data.data
+            notPayData: arr
           })
         }
       }
@@ -41,8 +47,7 @@ Page({
   //选择事件
   handleClick:function(e){
     var itemId = e.currentTarget.dataset.id;
-    var price = e.currentTarget.dataset.price;
-    
+    var price  = e.currentTarget.dataset.price;
     if (this.data.totalObj.indexOf(itemId) > -1) {//则包含该元素
       var arr = new Array();
       this.data.totalObj.map(function(i){
@@ -65,6 +70,43 @@ Page({
       totalPrice: this.data.totalPrice + price
     })
   }, 
+
+  allChoose:function(e){
+    this.setData({
+      allCheck: !this.data.allCheck
+    })
+    if (this.data.allCheck){
+      console.log("选中")
+      var total = 0;
+      for (var i of this.data.notPayData) {
+        total = total + i.price;
+      }
+      var arr = this.data.notPayData;
+      var totalObj = new Array();
+      for (var i of arr) {
+        i.checked = true;
+        totalObj.push(i.id);
+      }
+      this.setData({
+        totalPrice: total,
+        notPayData: arr,
+        totalObj: totalObj
+      })
+    }else{
+      var arr = this.data.notPayData;
+      for (var i of arr) {
+        i.checked = false;
+      }
+      this.setData({
+        totalPrice: 0,
+        notPayData: arr,
+        totalObj:[]
+      })
+    }
+
+    
+    
+  },
 
 
 
