@@ -63,7 +63,7 @@ Page({
             i.date = util.format(i.TIME_PAY)
           }
           that.setData({
-            notPayData: data,
+            notPayData: data
           })
         }else{
           that.setData({
