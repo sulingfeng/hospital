@@ -10,21 +10,23 @@ Page({
     totalObj:[],
     totalPrice:0,
     notPayData:[],
+    sickName:"",
+    sickCard:""
   },
 
   //获取待付款列表
   getNotPayList:function(){
     const that = this;
     wx.request({
-      url: urlApi.getNotPayListUrl2(),
+      url: urlApi.getNotPayListUrl(),//getNotPayListUrl2
       method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        BRID: 46288,//app.globalData.BRID,
-        CXTS: "",
-        JSKLB: ""
+        BRID:app.globalData.BRID,
+        CXTS: "10",
+        JSKLB: "巨浪微信"
       },
       success: function (reponse) {
         if (reponse.data.code === 0){
@@ -70,6 +72,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      sickName: app.globalData.sickName,
+      sickCard: app.globalData.sickCard
+    })
     this.getNotPayList();
   },
 
@@ -125,11 +131,11 @@ Page({
   },
 
   toPay: function (e) {
-    console.log("选中的医生", e);
+    var info = {
+      money: this.data.totalPrice
+    }
     wx.navigateTo({
-      // url: '/pages/doctor/doctor?doctor=' + JSON.stringify(e.currentTarget.dataset.doctor)
-      //   + '&departmentName=' + this.data.department.name
-      url: '/pages/pay/pay'
+      url: '/pages/MZPay/MZPay?info=' + JSON.stringify(info)
     })
   }
 })

@@ -108,14 +108,30 @@ Page({
       },
       success: function (reponse) {
         var data = reponse.data
-        console.log("注册返回",data);
-        if (data.ERRCODE == 200){
-
-        } else if (data.ERROR.ERRCODE === "SYS_000"){
-          $Message({
-            content: '注册失败',
-            type: 'error'
-          });
+        if (data.ERROR.ERRCODE){
+          wx.showToast({
+            title: '注册失败',
+            icon: 'none',
+            complete: function () {
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '/pages/home/home',
+                })
+              }, 2000)
+            }
+          })
+        } else{
+          wx.showToast({
+            title: '注册成功',
+            icon: 'success',
+            complete: function () {
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '/pages/home/home',
+                })
+              }, 2000)
+            }
+          })
         }  
       }
     })

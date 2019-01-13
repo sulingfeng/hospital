@@ -18,6 +18,7 @@ Page({
     doctorId:"",
     departments:"",
     position:"",
+    dateType:"week",
     price:"",
     sickList: [],
     sickName:"",
@@ -76,12 +77,24 @@ Page({
   },
   switchView: function () {
     console.log("1111111")
-    switchView('week');
+    if (this.data.dateType == "week"){
+      this.setData({
+        dateType: "month"
+      })
+      switchView('month');
+    }else{
+      this.setData({
+        dateType: "week"
+      })
+      switchView('week');
+    }
+    
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     var doctor = JSON.parse(options.doctor);
     this.setData({
       doctor: doctor.YS,
@@ -94,6 +107,16 @@ Page({
       sickName: app.globalData.sickName,
       sickCard: app.globalData.sickCard,
     })
+    app.globalData.dayFun = {
+      dayFun: function (data) {
+        console.log("1111111", data)
+        var now = data.idx + 1
+        that.setData({
+          date: data.days[0].year + "-" + data.days[0].month + "-" + now
+        })
+
+      }
+    }
     console.log("选中的医生", doctor,"选中的时间", app.globalData.selectTime) ;
   },
 
@@ -148,8 +171,9 @@ Page({
         });
       },
     }
-
     initCalendar(conf); // 使用默认配置初始化日历
+    switchView('week');
+    
   },
 
   //tabs切换
@@ -173,8 +197,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.switchView('week');
-
+    
   },
 
   /**

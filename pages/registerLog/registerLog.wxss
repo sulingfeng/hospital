@@ -60,7 +60,7 @@
 .wrapperBottom text{
   font-size: 12px;
   color:#8c8c8c;
-  width: 60%;
+  width: 30%;
   display: block;
   overflow: hidden;
   text-overflow:ellipsis;

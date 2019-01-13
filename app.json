@@ -27,6 +27,7 @@
     "pages/branchLocation/branchLocation",
     "pages/collect/collect",
     "pages/hospitalInfo/hospitalInfo",
+    "pages/GHDetail/GHDetail",
     "pages/dayLog/dayLog"
   ],
   "tabBar": {

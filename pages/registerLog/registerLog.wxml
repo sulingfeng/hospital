@@ -9,13 +9,13 @@
   <view class='notPayTitle'>{{title}}</view>
   <view class="notLog {{show}}">您没有相关的记录</view>  
   <view>
-    <view class="wrapper" wx:for="{{notPayData}}" wx:key="{{ item.id }}">
+    <view class="wrapper" wx:for="{{notPayData}}" wx:key="{{ item.id }}" bindtap='detailFun'>
       <view>
-        <text>{{item.name}}</text>
+        <text>{{item.status}}</text>
         <view>￥{{item.price}}</view>
       </view>
       <view class="wrapperBottom">
-        <text>{{item.detail}}</text>
+        <text>{{item.name}}</text>
         <view>{{item.date}}</view>
       </view>
     </view>

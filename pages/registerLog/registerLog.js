@@ -15,12 +15,16 @@ Page({
     notPayData:[],
     sickName:"",
     sickCard:"",
-    show:"hidden"
+    show:"hidden",
+    type:""
   },
 
   //获取待付款列表
   getRegisterLog:function(type){
     const that = this;
+    this.setData({
+      type:type
+    })
     console.log("类类型类型类型型",type)
     var url = type == 0 ? urlApi.getRegisterLogUrl():
               type == 1?urlApi.getPayLogUrl():
@@ -52,6 +56,7 @@ Page({
         var data = reponse.data.LIST;
         if (data.length > 0){
           for (var i of data) {
+            i.status = i.STATUS == 0 ? "预约成功待缴费":i.STATUS == 1?"挂号成功":"已经取消";
             i.name = app.globalData.sickName,
             i.detail = "就诊卡：" + app.globalData.sickCard,
             i.price = i.MONEY/100
@@ -67,6 +72,14 @@ Page({
         }
       }
     })
+  },
+
+  detailFun:function(){
+    if(this.data.type == 0){
+      wx.navigateTo({
+        url: '/pages/GHDetail/GHDetail',
+      })
+    }
   },
 
   /**

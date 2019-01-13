@@ -43,6 +43,7 @@ Page({
           app.globalData.sickName = that.data.pensorName;
           app.globalData.BRID = obj[0].BR_ID;
           app.globalData.sickCard = that.data.pensorNumber;
+          app.globalData.sickList = obj;
         }
       }
     })
@@ -59,6 +60,12 @@ Page({
   personList: function () {
     wx.navigateTo({
       url: '../myperson/myperson'
+    })
+  },
+
+  goInfo:function(){
+    wx.switchTab({
+      url: '/pages/info/info',
     })
   },
   /**
@@ -121,6 +128,7 @@ Page({
     var that = this;
     app.globalData.changeMan = {
       changeMan:function(data){
+        console.log("切换人",data)
         that.setData({
           pensorName: data.NAME,
           pensorNumber: data.PATIENT_ID

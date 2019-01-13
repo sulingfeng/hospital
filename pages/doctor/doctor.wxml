@@ -29,9 +29,9 @@
     <view><i-button size="small" bind:click="switchView">切换日期</i-button></view>
   </view>
   <view class="calendar-wrap">
-    <template is="calendar" data="{{...calendar}}" />
+    <template is="calendar" data="{{...calendar}}"/>
     <i-cell-group>
-      <i-cell bindtap='handleOpen2' title="只显示箭头" value="{{price}}" is-link></i-cell>
+      <i-cell bindtap='handleOpen2' title="只显示箭头" value="{{price}}￥" is-link></i-cell>
     </i-cell-group>
   </view>
 </view>
@@ -52,17 +52,17 @@
                 <text class='doctor-name'>医生：{{doctor}}</text> 
                 <text class='doctor-name'>科室：妇产科</text> 
                 <text class='doctor-name'>费用：￥3.00</text> 
-                <text class='doctor-name'>事件：{{date}}</text> 
+                <text class='doctor-name'>时间：{{date}}</text> 
             </view>
         </view>
         <view class='list-part-bottom'>
-          <text class='doctor-name1'>就诊人：王强强</text> 
+          <text class='doctor-name1'>就诊人：{{sickName}}</text> 
           <text class='doctor-name2'>就诊卡：{{sickCard}}</text> 
         </view>
         
     </view>
     <view class='bottomYes' bindtap='goPay' slot="header" style="padding: 16px">
-        <view style="color: #444;font-size: 16px">确定</view>
+        <view style="color: #fff;font-size: 16px">确定</view>
     </view>
   </i-action-sheet>
 </view>

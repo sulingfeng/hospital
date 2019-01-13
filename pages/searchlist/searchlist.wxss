@@ -40,7 +40,7 @@ page{
     color: #ccc;
 }
 .searchInput{
-  border: solid 1px #008e76;
+  /* border: solid 1px #1498d9; */
   background: #f2f2f2;
   height: 1.75rem;
   line-height: 1.75rem;

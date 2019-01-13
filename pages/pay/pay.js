@@ -60,30 +60,54 @@ Page({
       "package": this.data.package,
       "signType": this.data.signType,
       "paySign": this.data.paySign,
-      "complete": function(res) {
-        wx.showToast({
-          title: '支付成功',
-          icon: 'success',
-          complete: function() {
-          }
-        })
-        wx.redirectTo({
-          url: "/pages/home/home"
-        })
+      success: function(res) {
+        //  wx.redirectTo({
+        //    url: "/pages/home/home"
+        //  })
+        setTimeout(function () {
+          wx.switchTab({
+            url: '/pages/home/home',
+          })
+        }, 2000)
+
+
+
+        //that.goHome();
+        
+        // wx.redirectTo({
+        //   url: "/pages/home/home"
+        // })
+        // wx.showToast({
+        //   title: '支付成功',
+        //   icon: 'success',
+        //   complete: function() {
+        //     wx.navigateTo({
+        //       url: "/pages/home/home"
+        //     })
+        //   }
+        // })
       },
-      'fail': function(res) {
+      fail: function(res) {
         console.log("小程序支付失败：",res);
         wx.showModal({
           title: '支付失败',
           content: res.errMsg,
           complete: function() {
-            url = escape(url + "&resultCode=FAIL");
-            wx.redirectTo({
-              url: "/pages/view/view?url=" + url + "&fnName=" + fnName
-            })
+            setTimeout(function () {
+              wx.switchTab({
+                url: '/pages/home/home',
+              })
+            }, 2000)
           }
         });
       }
+    })
+  },
+
+  goHome:function(){
+    console.log("支付成功回调")
+    wx.navigateTo({
+      url: "/pages/home/home"
     })
   },
 

@@ -61,3 +61,13 @@
 #hidden{
   display: none;
 }
+.erweima{
+  width: 107px;
+  height: 107px;
+}
+.erweimaWrapper{
+  height: 400px;
+}
+.erweimaWrapper .i-modal-body{
+  max-height:180px;
+}

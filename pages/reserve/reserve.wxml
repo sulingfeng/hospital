@@ -15,6 +15,7 @@
     </view>
   </view>
   <view class="calendar-wrap" class="{{dateShow}}" bind:myevent="getfather">
+    <view><i-button size="small" bind:click="switchView">切换周月</i-button></view>
     <template is="calendar" data="{{...calendar}}" />
   </view>
   <view>

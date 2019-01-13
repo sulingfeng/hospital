@@ -12,4 +12,10 @@
 .i-btn-small{
   height: 25px;
 }
+.i-cell-text{
+  float: left;
+}
+.name>view>view>view{
+  float: left;
+}
   

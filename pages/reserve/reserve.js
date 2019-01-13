@@ -18,21 +18,37 @@ Page({
     current_scroll: 'tab1',
     show: "show",
     KSID: "",
+    dateType: "week",
     day: util.formatTime2(new Date())
   },
-
-
+  switchView: function () {
+    console.log("1111111", this.data.dateType)
+    if (this.data.dateType == "week") {
+      this.setData({
+        dateType: "month"
+      })
+      switchView('month');
+    } else {
+      this.setData({
+        dateType: "week"
+      })
+      switchView('week');
+    }
+  },
 
   //获取医生列表
   getDoctorList: function() {
     var that = this;
     wx.request({
       url: urlApi.queryRelatives(),
-      method: "get",
+      method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: {},
+      data: {
+        //KSID: that.data.KSID,
+        //RQ: 2019 - 1 - 13
+      },
       success: function(reponse) {
         var doctorArr = new Array();
         var list = reponse.data.DATAPARAM.GROUP.HBLIST.HB;
@@ -99,10 +115,6 @@ Page({
     //this.doctorList(Number(options.id))
   },
 
-  switchView: function() {
-    console.log("预约方式切换")
-    switchView();
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -229,7 +241,6 @@ Page({
 
   handleChange({detail}) {
     var type = detail.key;
-    console.log("选项", type, switchView)
     if (type === "tab1") {
       this.setData({
         dateShow: "show"

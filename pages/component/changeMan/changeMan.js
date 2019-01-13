@@ -40,8 +40,21 @@ Component({
       })
     },
 
-    sickList: function () {
+    sickList: function (param) {
       var that = this;
+      var arr = param;
+      for (var i in arr) {
+        if (arr[i].PATIENT_ID == app.globalData.sickCard) {
+          arr[i].color = that.data.active
+        } else {
+          arr[i].color = that.data.notActive
+        }
+      }
+      that.setData({
+        visible2: true,
+        sickList: arr
+      });
+      return;
       wx.request({
         url: urlApi.getScikList2() + "?WID=" + app.globalData.openid,
         method: "get",
@@ -75,7 +88,7 @@ Component({
     },
 
     handleOpen2:function() {
-      this.sickList();
+      this.sickList(app.globalData.sickList);
     },
 
     handleCancel2 () {

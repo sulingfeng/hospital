@@ -110,7 +110,20 @@ const getLockModify = function () {
   return url+ type.MZ + "Register.Lock.Modify";
 }
 
+//搜索医生、科室接口
+const getSearchDoctor = function () {
+  return url + "Micro/Search";
+}
 
+//住院费预交
+const getInHopltalPay = function () {
+  return url + "Weixin/Pay/Hospital";
+}
+
+//获取科室介绍信息
+const getKSinfo = function () {
+  return url + type.data + "Basic.DeptInfoBase.Query";
+}
 
 
 /**
@@ -145,5 +158,8 @@ module.exports = {
   getScikList2: getScikList2,
   queryRelatives2: queryRelatives2,
   getTableList2: getTableList2,
-  getMZPayInfo: getMZPayInfo
+  getMZPayInfo: getMZPayInfo,
+  getSearchDoctor: getSearchDoctor,
+  getKSinfo:getKSinfo,
+  getInHopltalPay: getInHopltalPay
 }

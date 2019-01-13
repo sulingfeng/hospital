@@ -8,7 +8,11 @@ Page({
   data: {
     value2:"",
     show:"show",
-    money:""
+    money:"",
+    active:"",
+    sickName: "",
+    sickCard: "",
+    button: [{ id: 100, type: "" }, { id: 200, type: "" }, { id: 500, type: "" }, { id: 1000, type: "" }]
   },
 
   sickDataFun:function(){
@@ -28,15 +32,30 @@ Page({
     this.setData({
       money: money
     })
-    
   },
 
-  handleClick: function (){
+  handleClick:function(e){
+    var money = e.target.dataset.money;
+    var arr = this.data.button;
+    for (var i of arr){
+      if(money == i.id){
+        i.type ="primary"
+      }else{
+        i.type = ""
+      }
+    }
+    this.setData({
+      money: money,
+      button: arr
+    })
+  },
+
+  inputMoney: function (){
     var info = {
-      money: this.data.money,
+      money: this.data.money
     }
     wx.navigateTo({
-      url: '/pages/MZPay/MZPay?info=' + JSON.stringify(info)
+      url: '/pages/inHSPay/inHSPay?info=' + JSON.stringify(info)
     })
   },
 
@@ -44,6 +63,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      sickName: app.globalData.sickName,
+      sickCard: app.globalData.sickCard
+    })
     this.sickDataFun();
   },
 
