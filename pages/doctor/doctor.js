@@ -52,7 +52,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        if (res.data.DATAPARAM){
+        if (res.data.DATAPARAM.HX){
           var info = {
             doctor: that.data.doctor,
             doctorId: that.data.doctorId,
@@ -61,8 +61,14 @@ Page({
             departments: that.data.departments,
             HISID: res.data.DATAPARAM.HX
           }
+          app.globalData.HX = res.data.DATAPARAM.HX;
           wx.navigateTo({
             url: '/pages/pay/pay?info=' + JSON.stringify(info)
+          })
+        }else{
+          wx.showToast({
+            title: '请重新选择',
+            icon:"none"
           })
         }
         
@@ -96,6 +102,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     var doctor = JSON.parse(options.doctor);
+    app.globalData.selectDoctor = doctor;
     this.setData({
       doctor: doctor.YS,
       doctorId:doctor.YSID,

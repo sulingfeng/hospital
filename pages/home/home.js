@@ -42,6 +42,7 @@ Page({
           })
           app.globalData.sickName = that.data.pensorName;
           app.globalData.BRID = obj[0].BR_ID;
+          app.globalData.SFZH = obj[0].IDCARD;
           app.globalData.sickCard = that.data.pensorNumber;
           app.globalData.sickList = obj;
         }
@@ -135,6 +136,7 @@ Page({
         })
         app.globalData.sickName = data.NAME;
         app.globalData.BRID= data.BR_ID;
+        app.globalData.SFZH = data.IDCARD;
         app.globalData.sickCard = data.PATIENT_ID;
       }
     }

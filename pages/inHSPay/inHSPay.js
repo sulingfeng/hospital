@@ -24,8 +24,9 @@ Page({
 
   payInfo: function(data) {
     var that = this;
+    app.globalData.JE = data.money;
     wx.request({
-      url: urlApi.getPayInfo(),//getPayInfo(), //getInHopltalPay(),//
+      url: urlApi.getInHopltalPay(),//getPayInfo(), //getInHopltalPay(),//
       method: "POST",
       data:{
         WID :app.globalData.openid,
@@ -66,6 +67,8 @@ Page({
           title: '支付成功',
           icon: 'success',
           complete: function() {
+            that.payYJ1Success();
+            that.payYJSuccess2();
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/home/home',
@@ -87,6 +90,52 @@ Page({
             }, 2000)
           }
         });
+      }
+    })
+  },
+
+  payYJ1Success: function () {
+    console.log("门诊门诊支付成功后调用了这个接口")
+    var that = this;
+    wx.request({
+      url: urlApi.getYJ1PaySuccess(),
+      method: "POST",
+      data: {
+        BRID: app.globalData.BRID,
+        ZYCS: "ZYCS",
+        SFMZ: "",
+        SFZH: app.globalData.SFZH,
+        JSKLB: "巨浪微信",
+        JSKH: "",
+        JSFS: "",
+        JSJE: app.globalData.JE,
+        JYLSH: app.globalData.ddh,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("成功以后掉用的接口返回的参数", res);
+
+      }
+    })
+  },
+
+  payYJSuccess2: function () {
+    console.log("门诊门诊支付成功后调用了这个接口")
+    var that = this;
+    wx.request({
+      url: urlApi.getYJ2PaySuccess(),
+      method: "POST",
+      data: {
+        BRID: app.globalData.BRID,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("成功以后掉用的接口返回的参数", res);
+
       }
     })
   },

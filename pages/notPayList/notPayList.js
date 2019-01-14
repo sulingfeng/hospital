@@ -25,17 +25,26 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        BRID: app.globalData.BRID,//504260
+        BRID:app.globalData.BRID,
         CXTS:"10",
         JSKLB: "巨浪微信"
       },
       success: function (reponse) {
-        if (reponse.data.code === 0){
-          var arr = reponse.data.data;
+        if (reponse.data.DATAPARAM.GHLIST.GH){
+          var obj = reponse.data.DATAPARAM.GHLIST.GH;
+          var arr = reponse.data.DATAPARAM.GHLIST.GH.YZLIST.YZ;
+          var DJHset = new Set();
           for(var i of arr){
-            i.checked = false
+            i.name = obj.KDKS;
+            i.price = i.FMLIST.FM.JE;
+            i.checked = false;
+            DJHset.add(i.DJLIST.DJ.DJH)
           }
-          console.log("代缴费列表",arr);
+          var DJHarr = new Array();
+          for (var j of DJHset){
+            DJHarr.push(j)
+          }
+          app.globalData.DJH = DJHarr.toString();
           that.setData({
             notPayData: arr
           })
@@ -176,6 +185,7 @@ Page({
     var info = {
       money: this.data.totalPrice
     }
+    app.globalData.JE = this.data.totalPrice
     wx.navigateTo({
       url: '/pages/MZPay/MZPay?info=' + JSON.stringify(info)
     })

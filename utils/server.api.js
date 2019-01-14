@@ -4,7 +4,8 @@ const url ="http://frpgz1.idcfengye.com:10038/"
 const type = {
   user:"UserManager/",
   data: "Information/",
-  MZ:"OutPatient/"
+  MZ:"OutPatient/",
+  YJ:"Hospitalization/"
 
 } 
 
@@ -125,6 +126,30 @@ const getKSinfo = function () {
   return url + type.data + "Basic.DeptInfoBase.Query";
 }
 
+//挂号支付成功后调用的接口
+const getGHPaySuccess = function () {
+  return url + type.MZ + "Register.Confirm.Modify";
+}
+
+//门诊待缴费支付成功后调用这个
+const getMZPaySuccess = function () {
+  return url + type.MZ + "Payment.Pay.Modify";
+}
+
+//预交费支付成功1
+const getYJ1PaySuccess = function () {
+  return url + type.YJ + "PrePayment.Pay.Modify";
+}
+
+//预交费支付成功2
+const getYJ2PaySuccess = function () {
+  return url + type.YJ + "PrePayment.Record.Query";
+}
+
+
+
+
+
 
 /**
  * 发送Sms
@@ -161,5 +186,9 @@ module.exports = {
   getMZPayInfo: getMZPayInfo,
   getSearchDoctor: getSearchDoctor,
   getKSinfo:getKSinfo,
+  getGHPaySuccess: getGHPaySuccess,
+  getMZPaySuccess: getMZPaySuccess,
+  getYJ1PaySuccess: getYJ1PaySuccess,
+  getYJ2PaySuccess: getYJ2PaySuccess,
   getInHopltalPay: getInHopltalPay
 }

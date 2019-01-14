@@ -19,17 +19,18 @@ Page({
     price: "",
     departments: "",
     sickName:"",
-    sickCard:""
+    sickCard:"",
+    ddh:""
   },
 
   payInfo: function(data) {
     var that = this;
     wx.request({
-      url: urlApi.getPayInfo(),//getPayInfo(), //getInHopltalPay(),//
+      url: urlApi.getMZPayInfo(),//getPayInfo(), //getInHopltalPay(),//
       method: "POST",
       data:{
         WID :app.globalData.openid,
-        HISID: data.HISID,
+        HISID: app.globalData.BRID,
         MONEY:data.money,
         BRID:app.globalData.BRID
       },
@@ -46,7 +47,8 @@ Page({
           package: data.package,
           paySign: data.paySign,
           signType: data.signType,
-          timeStamp: data.timeStamp
+          timeStamp: data.timeStamp,
+          ddh:data.ddh
         })
       }
     })
@@ -66,6 +68,7 @@ Page({
           title: '支付成功',
           icon: 'success',
           complete: function() {
+            that.payMZSuccess();
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/home/home',
@@ -87,6 +90,31 @@ Page({
             }, 2000)
           }
         });
+      }
+    })
+  },
+
+  payMZSuccess: function () {
+    console.log("门诊门诊支付成功后调用了这个接口")
+    var that = this;
+    wx.request({
+      url: urlApi.getMZPaySuccess(),
+      method: "POST",
+      data: {
+        DJH: app.globalData.DJH,
+        JE: app.globalData.JE,
+        SFGH: 0,
+        BRID: app.globalData.BRID,
+        JSKLB: "巨浪微信",
+        JSJE: app.globalData.JE,
+        JYLSH: that.data.ddh
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("成功以后掉用的接口返回的参数", res);
+
       }
     })
   },
