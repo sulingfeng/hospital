@@ -129,7 +129,6 @@ Page({
       ADDRESS: this.addrs,
       DEFAULT: 0,
       BR_ID: this.data.update.BR_ID
-      
     }
     
     var ask = this.data.update == "" ? obj : obj2;
@@ -145,6 +144,7 @@ Page({
       success: function (reponse) {
         var data = reponse.data
         if (data.DATAPARAM != undefined){
+          app.globalData.getPonsorInfo.getPonsorInfo();
           if (app.globalData.sickList.length == 0){
             app.globalData.sickName = data.NAME;
             app.globalData.BRID = data.BR_ID;
@@ -176,7 +176,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("身份证列表", app.globalData.SFZlist)
+    
   },
 
   /**

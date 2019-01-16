@@ -125,7 +125,8 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        if (res.data.DATAPARAM.GHDH){
+        var data =  res.data.DATAPARAM;
+        if (data != undefined){
           setTimeout(function () {
             wx.switchTab({
               url: '/pages/home/home',

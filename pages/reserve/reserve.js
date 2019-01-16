@@ -22,7 +22,6 @@ Page({
     day: util.formatTime2(new Date())
   },
   switchView: function () {
-    console.log("1111111", this.data.dateType)
     if (this.data.dateType == "week") {
       this.setData({
         dateType: "month"
@@ -50,18 +49,21 @@ Page({
         HZDW: "巨浪微信"
       },
       success: function(response) {
+        if (response.data.DATAPARAM.GROUP.HBLIST == "")return;
         var doctorArr = new Array();
         var doctorList = response.data.DATAPARAM.GROUP.HBLIST.HB
         var list = doctorList instanceof Array ? doctorList : [doctorList];
-        console.log("医生列表", list)
         list.map(i => {
-          i.imageurl = "../../images/doctor2.jpg",
-          i.price = "3",
-          i.type = 0
+          i.imageurl = "../../images/doctor2.jpg";
+          i.price = i.DJ== ""?3:i.DJ==undefined?3:i.DJ;
+          i.type  = 0;
+          i.SYHS  = i.SYHS == ""?0:i.SYHS;
+          i.color = i.SYHS == 0 ? "color2" : "color";
         })
+        console.log("医生列表", list)
         that.setData({
           doctors: list,
-          show: "hidden"
+          show: "show",
         });
       }
     })
@@ -292,9 +294,17 @@ Page({
   //页面跳转
   toShowDoctorDetails: function(e) {
     var obj = e.currentTarget.dataset.doctor
-    obj.selectTime = this.data.day; 
-    wx.navigateTo({
-      url: '/pages/doctor/doctor?doctor=' + JSON.stringify(obj)
-    })
+    console.log("去医生详情页面",obj);
+    if (obj.SYHS != 0){
+      obj.selectTime = this.data.day;
+      wx.navigateTo({
+        url: '/pages/doctor/doctor?doctor=' + JSON.stringify(obj)
+      })
+    }else{
+      wx.showToast({
+        title: '当前医生无号请重新选择',
+        icon:"none"
+      })
+    }
   }
 })

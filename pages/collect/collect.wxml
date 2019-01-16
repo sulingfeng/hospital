@@ -3,23 +3,31 @@
 
 <view>
   <view>
-    <view wx:for="{{ doctors }}" wx:key="{{ item.id }}" data-doctor='{{ item }}' bindtap='toShowDoctorDetails' class='list-with-graphic'>
+    <i-swipeout wx:for="{{ doctors }}" wx:key="{{ item.id }}"  i-class="i-swipeout-demo-item" actions="{{actions}}" data-id="{{item.YSID}}" bindchange="handlerCloseButton">
+      <view slot="content">
+        <view class="iconWrap"><image src='../../images/doctor.jpg'></image></view>
+        <i-cell i-class="i-cell-padding" title="{{item.YS}}" label="{{item.KSMC}},{{ item.ZC }}">
+          
+        </i-cell>
+      </view>
+    </i-swipeout>
+    <!-- <view wx:for="{{ doctors }}" wx:key="{{ item.id }}" data-doctor='{{ item }}' bindtap='toShowDoctorDetails' class='list-with-graphic'>
         <view class='list-part-top'>
             <view class='list-part-left'>
                 <image src="{{ item.imageurl }}"></image>
             </view>
             <view class='list-part-right'>
                 <view>
-                  <text class='doctor-name'>{{ item.name }}</text> 
+                  <text class='doctor-name'>{{ item.YS }}</text> 
                   <text class="price {{show}}">{{item.price}}</text>
                   <text class="haveNumber {{show}}">{{item.type}}</text>
                 </view>
                 <view class='list-part-bottom'>
-                  <label>{{ item.position }}</label>
-                  <text class='doctor-field'>{{ item.field }}</text>
+                  <label>{{ item.KSMC }}</label>
+                  <text class='doctor-field'>{{ item.ZC }}</text>
                 </view>
             </view>
         </view>
-    </view>
+    </view> -->
 </view>
 </view>

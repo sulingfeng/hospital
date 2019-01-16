@@ -92,6 +92,7 @@
     "i-modal": "iview/modal/index",
     "i-action-sheet": "iview/action-sheet/index",
     "i-radio-group": "iview/radio-group/index",
+    "i-swipeout": "iview/swipeout/index",
     "i-radio": "iview/radio/index"
   }
 }

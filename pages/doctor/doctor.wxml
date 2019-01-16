@@ -8,7 +8,7 @@
       <view>{{departments}}</view>
     </view>
     <view>
-      <i-icon size='20' type="collection" />
+      <i-icon size='20' type="collection" bindtap='collecting' />
       <i-icon size='20' type="share" />
     </view>
   </view>

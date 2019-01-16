@@ -164,7 +164,21 @@ const getMZnotPayLog = function () {
   return url + "Weixin/Pay/Receipt/Array";
 }
   
+//收藏功能
+const getCollectingUrl = function () {
+  return url + "Micro/Doctor/Favorites/Save";
+}
 
+//删除收藏的医生
+const getCollectingDeleteUrl = function () {
+  return url + "Micro/Doctor/Favorites/Remove";
+}
+
+
+//获取收藏列表
+const getCollectingListUrl = function () {
+  return url + "Micro/Doctor/Favorites/Array";
+}
 
 
 /**
@@ -181,6 +195,8 @@ const sendSms = function (phone, type) {
 
 module.exports = {
   getPensorInfoUrl: getPensorInfoUrl,
+  getCollectingUrl: getCollectingUrl,
+  getCollectingListUrl: getCollectingListUrl,
   getRegisterUrl:getRegisterUrl,
   getTableList: getTableList,
   queryRelatives:queryRelatives,
@@ -209,5 +225,6 @@ module.exports = {
   getYJ1PaySuccess: getYJ1PaySuccess,
   getYJ2PaySuccess: getYJ2PaySuccess,
   getInHopltalPay: getInHopltalPay,
+  getCollectingDeleteUrl: getCollectingDeleteUrl,
   getMZnotPayLog: getMZnotPayLog
 }

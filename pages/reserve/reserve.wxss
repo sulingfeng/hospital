@@ -71,11 +71,17 @@
   border-radius: 20px;
   font-size:14px;
   background: #ffa14e; 
-  margin-right: 0px;
+  margin-right: 8px;
 }
 .show{
   display: block;
 }
 .hidden{
   display: none;
+}
+#color{
+  background: #1498d9; 
+}
+#color2{
+  background: #999; 
 }

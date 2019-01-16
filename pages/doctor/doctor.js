@@ -135,6 +135,31 @@ Page({
     console.log("选中的医生", doctor,"选中的时间", app.globalData.selectTime) ;
   },
 
+  collecting:function(){
+    wx.request({
+      url: urlApi.getCollectingUrl(),
+      method: "post",
+      data: {
+        WID: app.globalData.openid,
+        ID: app.globalData.selectDoctor.YSID,
+        BRID: app.globalData.BRID,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        if (res.data.BRID) {
+          wx.showToast({
+            title: '收藏成功',
+            icon: "success",
+          })
+        } else {
+
+        }
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

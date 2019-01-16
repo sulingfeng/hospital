@@ -55,6 +55,7 @@ function isInArray(arr, value) {
 function isInObject(arr,value,data) {
   for (var i = 0; i < arr.length; i++) {
     if (value === arr[i][data]) {
+      arr[i].position = i;
       return arr[i];
     }
   }

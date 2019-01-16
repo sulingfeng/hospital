@@ -2,7 +2,10 @@
 import initCalendar from '../component/calendar/calendar/index';
 import { setTodoLabels } from '../component/calendar/calendar/index';
 import { switchView } from '../component/calendar/calendar/index';
+const { $Message } = require('../../iview/base/index');
 const urlApi = require('../../utils/server.api.js')
+const util = require("../../utils/util.js");
+const app = getApp();
 Page({
 
   /**
@@ -13,7 +16,64 @@ Page({
     doctors: [],
     current: 'tab1',
     current_scroll: 'tab1',
-    show:"show",
+    show:"hidden",
+    actions: [
+      {
+        name: '删除',
+        color: '#fff',
+        fontsize: '20',
+        width: 100,
+        icon: 'like',
+        background: '#ed3f14'
+      },
+      {
+        name: '返回',
+        width: 100,
+        color: '#80848f',
+        fontsize: '20',
+        icon: 'undo'
+      }
+    ]
+  },
+
+  handlerCloseButton(e) {
+    var type = e.detail.index;
+    var id = e.currentTarget.dataset.id;
+    console.log("类型", type,"医生ID", id)
+    if (type == 0){
+      this.deleteDoctor(id);
+    }else{
+      console.log("返回")
+      this.setData({
+        toggle2: this.data.toggle2 ? false : true
+      });
+    }
+  },
+
+  //根据id删除收藏额医生
+  deleteDoctor: function (id) {
+    var that = this;
+    var res = util.isInObject(this.data.doctors,id,"YSID");
+    var arr = this.data.doctors;
+    arr.splice(res.position, 1)
+    console.log("删除返回", arr);
+    this.setData({
+      doctors: arr
+    })
+    wx.request({
+      url: urlApi.getCollectingDeleteUrl(),
+      data: {
+        WID: app.globalData.openid,
+        BRID: app.globalData.BRID,
+        ID:id
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (response) {
+
+      }
+    })
   },
 
   /**
@@ -31,33 +91,59 @@ Page({
   },
 
   //按人亲求医生列表
-  doctorList: function (KSID,SJJG){
+  doctorList: function (){
     var that = this;
     wx.request({
-      url: urlApi.queryRelatives2("doctor",44),
+      url: urlApi.getCollectingListUrl(),
       data: {
-        KSID: KSID,
-        HZDW:"巨浪微信"
+        WID: app.globalData.openid,
+        BRID: app.globalData.BRID,
       },
       header: {
         'content-type': 'application/json'
       },
       success: function (response) {
-        that.data.doctors = response.data.doctors.map(doctor => {
-          return {
-            id: doctor.id,
-            name: doctor.name,
-            position: doctor.position,
-            title: doctor.title,
-            resume: doctor.resume,
-            field: doctor.field,
-            imageurl: doctor.imageurl
+        if(response.data.LIST.length>0){
+          for (var i of response.data.LIST){
+            if (i.BRID == app.globalData.BRID){
+              var arr = i.IDS.split(",");
+              for(var j of arr){
+                that.getDoctorList(j);
+              }
+            }
           }
-        });
-        console.log("列表", that.data.doctors)
+        }
+      }
+    })
+  },
+
+  getDoctorList:function(id){
+    if(id == "")return;
+    var that = this;
+    wx.request({
+      url: urlApi.queryRelatives(),
+      method: "post",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        YSID: id,
+      },
+      success: function (response) {
+        var doctorArr = new Array();
+        var doctorList = response.data.DATAPARAM.GROUP.HBLIST.HB
+        var list = doctorList instanceof Array ? doctorList : [doctorList];
+        list.map(i => {
+          i.imageurl = "../../images/doctor2.jpg";
+          i.price = i.PRICE == "" ? 3 : i.PRICE == undefined ? 3 : i.PRICE;
+          i.type = 0;
+          i.SYHS = i.SYHS == "" ? 0 : i.SYHS;
+          i.color = i.SYHS == 0 ? "color2" : "color";
+        })
+        console.log("医生列表", list)
         that.setData({
-          doctors: that.data.doctors,
-          show:"hidden"
+          doctors: list,
+          show: "hidden",
         });
       }
     })
@@ -68,7 +154,8 @@ Page({
     if(type === "1"){
       this.doctorList();
     }else if(type === "0"){
-      this.doctorListDate();
+      this.doctorList();
+      //this.doctorListDate();
     }
     
     this.setData({

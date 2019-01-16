@@ -27,8 +27,8 @@
             <view class='list-part-right'>
                 <view>
                   <text class='doctor-name'>{{ item.YS }}</text> 
-                  <text class="price {{show}}">{{item.price}}</text>
-                  <text class="haveNumber {{show}}">{{item.type}}</text>
+                  <text class="price {{show}}">￥{{item.price}}</text>
+                  <text class="haveNumber {{show}}" id="{{item.color}}">剩：{{item.SYHS}}</text>
                 </view>
                 <view class='list-part-bottom'>
                   <label>{{ item.ZC }}</label>

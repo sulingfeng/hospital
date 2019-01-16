@@ -158,6 +158,11 @@ Page({
         app.globalData.sickCard = data.PATIENT_ID;
       }
     }
+    app.globalData.getPonsorInfo = {
+      getPonsorInfo: function(){
+        that.getPonsorInfo()
+      }
+    }
   },
 
   /**
