@@ -26,32 +26,6 @@ App({
           success: function (res) {
             console.log("openId获取成", res.data.openid)
             that.globalData.openid = res.data.openid;
-            // wx.request({
-            //   url: urlApi.getScikList2(),
-            //   method: "post",
-            //   header: {
-            //     'content-type': 'application/x-www-form-urlencoded'
-            //   },
-            //   data: {
-            //     WID: res.data.openid
-            //   },
-            //   success: function (data) {
-            //     console.log("就诊人列表", data);
-            //     if (data.data.LIST.length > 0) {
-            //       var obj = data.data.LIST;
-            //       if (obj.length == 0) return;
-            //       that.setData({
-            //         pensorShowTop: "hidden",
-            //         pensorShowBottom: "show",
-            //         pensorName: obj[0].NAME,
-            //         pensorNumber: obj[0].PATIENT_ID
-            //       })
-            //       app.globalData.sickName = that.data.pensorName;
-            //       app.globalData.BRID = obj[0].BR_ID;
-            //       app.globalData.sickCard = that.data.pensorNumber;
-            //     }
-            //   }
-            // })
           }
         })
       }

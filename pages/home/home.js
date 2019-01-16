@@ -40,11 +40,21 @@ Page({
             pensorName: obj[0].NAME,
             pensorNumber: obj[0].PATIENT_ID
           })
+          var person = obj;
+          person = person.reduce((cur, next) => {
+            obj[next.IDCARD] ? "" : obj[next.IDCARD] = true && cur.push(next);
+            return cur;
+          }, []);
+          var sfzArr = new Array();
+          person.map(i=>{
+            sfzArr.push(i.IDCARD)
+          })
+          app.globalData.SFZlist = sfzArr
           app.globalData.sickName = that.data.pensorName;
           app.globalData.BRID = obj[0].BR_ID;
           app.globalData.SFZH = obj[0].IDCARD;
-          app.globalData.sickCard = that.data.pensorNumber;
-          app.globalData.sickList = obj;
+          app.globalData.sickCard = that.data.pensorNumber; 
+          app.globalData.sickList = person;
         }
       }
     })
@@ -100,6 +110,13 @@ Page({
     })
   },
 
+  //住院报告
+  report:function(){
+    wx.navigateTo({
+      url: '/pages/report/report'
+    })
+  },
+
   //获取二维码
   EWM:function () {
     this.setData({
@@ -127,6 +144,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    app.globalData.sickList = [];
     app.globalData.changeMan = {
       changeMan:function(data){
         console.log("切换人",data)

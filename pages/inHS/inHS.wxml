@@ -17,7 +17,7 @@
         </i-grid-icon>
         <i-grid-label>押金补缴记录</i-grid-label>
       </i-grid-item>
-      <i-grid-item>
+      <i-grid-item bindtap="report">
         <i-grid-icon>
           <image src="../../images/bill.png" />
         </i-grid-icon>

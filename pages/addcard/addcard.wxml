@@ -16,6 +16,6 @@
 
   <i-input value="{{ addrs }}"  bind:blur="addrVerifyFun" title="详细地址" placeholder="请输入详细地址(最多50字)" maxlength="50" />
   <view class='panel-p30'>
-    <i-button bind:click="handleClick" type="primary">立即添加</i-button>
+    <i-button bind:click="handleClick" type="primary">{{yesButton}}</i-button>
   </view>
 </i-panel>

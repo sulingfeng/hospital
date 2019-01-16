@@ -1,6 +1,7 @@
 // pages/addcard/addcard.js
 const { $Message } = require('../../iview/base/index');
 const urlApi = require('../../utils/server.api.js');
+const util = require("../../utils/util.js")
 const app = getApp();
 Page({
   /**
@@ -13,16 +14,18 @@ Page({
     addrs: '',
     fruit: [{
       id: 0,
-      name: '女生',
+      name: '女',
     }, {
       id: 1,
-      name: '男生'
+      name: '男'
     }],
     position: 'left',
     animal: '熊猫',
     sex:"",
     checked: false,
     disabled: false,
+    update:"",
+    yesButton:"立即添加"
   },
 
   //姓名验证发放
@@ -46,6 +49,22 @@ Page({
       });
     } else {
       this.card = card
+    }
+    var bool = util.isInObject(app.globalData.sickList,this.card,"IDCARD");
+    if (bool) {
+      $Message({
+        content: "身份证号码已经被使用过了继续绑定将是更新",
+        duration: 5
+      });
+      this.setData({
+        update: bool,
+        yesButton:"确定更新"
+      })
+    }else{
+      this.setData({
+        update: "",
+        yesButton: "立即添加"
+      })
     }
   },
 
@@ -76,7 +95,9 @@ Page({
 
   //获取性别
   handleFruitChange({ detail = {} }) {
-    this.sex = detail.value
+    this.setData({
+      current: detail.value
+    });
   },
 
   handleDisabled() {
@@ -86,7 +107,7 @@ Page({
   },
 
   handleClick:function(){
-    var sex = this.sex === "女生"?"0":"1";
+    var sex = this.sex === "女"?"0":"1";
     var obj = {
       WID: app.globalData.openid,
       NAME: this.name,
@@ -96,7 +117,22 @@ Page({
       ADDRESS: this.addrs,
       DEFAULT: 0
     }
-    console.log("请求参数", JSON.stringify(obj), "连接", urlApi.getRegisterUrl())
+
+    console.log("查看石灰粉", this.data.update)
+    var obj2 = {
+      WID: app.globalData.openid,
+      UID: this.data.update.UID,
+      NAME: this.name,
+      IDCARD: this.card,
+      SEX: sex,
+      PHONE: this.phone,
+      ADDRESS: this.addrs,
+      DEFAULT: 0,
+      BR_ID: this.data.update.BR_ID
+      
+    }
+    
+    var ask = this.data.update == "" ? obj : obj2;
     wx.request({
       url: urlApi.getRegisterUrl(),
       method: "post",
@@ -104,33 +140,32 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       data:{
-        BODY: JSON.stringify(obj)
+        BODY: JSON.stringify(ask)
       },
       success: function (reponse) {
         var data = reponse.data
-        if (data.ERROR.ERRCODE){
+        if (data.DATAPARAM != undefined){
+          if (app.globalData.sickList.length == 0){
+            app.globalData.sickName = data.NAME;
+            app.globalData.BRID = data.BR_ID;
+            app.globalData.SFZH = data.IDCARD;
+            app.globalData.sickCard = data.PATIENT_ID;
+          }
           wx.showToast({
-            title: '注册失败',
-            icon: 'none',
-            complete: function () {
-              setTimeout(function () {
-                wx.switchTab({
-                  url: '/pages/home/home',
-                })
-              }, 2000)
-            }
-          })
-        } else{
-          wx.showToast({
-            title: '注册成功',
+            title: '成功',
             icon: 'success',
             complete: function () {
               setTimeout(function () {
                 wx.switchTab({
                   url: '/pages/home/home',
                 })
-              }, 2000)
+              }, 1000)
             }
+          })
+        } else{
+          wx.showToast({
+            title: '失败',
+            icon: 'none',
           })
         }  
       }
@@ -141,7 +176,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log("身份证列表", app.globalData.SFZlist)
   },
 
   /**

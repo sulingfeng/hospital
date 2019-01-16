@@ -12,7 +12,8 @@ Page({
     notPayData:[],
     sickName:"",
     sickCard:"",
-    allCheck:false
+    allCheck:false,
+    show:"hidden"
   },
 
   //获取待付款列表
@@ -32,25 +33,40 @@ Page({
       success: function (reponse) {
         if (reponse.data.DATAPARAM.GHLIST.GH){
           var obj = reponse.data.DATAPARAM.GHLIST.GH;
-          var arr = reponse.data.DATAPARAM.GHLIST.GH.YZLIST.YZ;
+          var arr1 = reponse.data.DATAPARAM.GHLIST.GH.YZLIST.YZ
+          var arr = arr1 instanceof Array?arr1:[arr1];
+          var notPayList = new Array(); 
           var DJHset = new Set();
-          for(var i of arr){
-            i.name = obj.KDKS;
-            i.price = i.FMLIST.FM.JE;
-            i.checked = false;
-            DJHset.add(i.DJLIST.DJ.DJH)
+          for (var i of arr) {
+            if (i.FMLIST.FM.ZFZT == 0){
+              i.name = obj.KDKS;
+              i.price = i.FMLIST.FM.JE;
+              i.checked = false;
+              i.id = i.YZID;
+              DJHset.add(i.DJLIST.DJ.DJH)
+              notPayList.push(i);
+            }
           }
           var DJHarr = new Array();
-          for (var j of DJHset){
+          for (var j of DJHset) {
             DJHarr.push(j)
           }
           app.globalData.DJH = DJHarr.toString();
+          if (notPayList.length == 0){
+            that.setData({
+              show: "show"
+            })
+          }
           that.setData({
-            notPayData: arr
+            notPayData: notPayList
           })
         }
       }
     })
+  },
+
+  DJFlist:function(){
+
   },
 
   //选择事件
@@ -75,8 +91,12 @@ Page({
 
   //计算总价
   countPrice:function(price){
+    console.log("计算总价",price)
     this.setData({
-      totalPrice: this.data.totalPrice + price
+      totalPrice: this.data.totalPrice + price,
+    })
+    this.setData({
+      toPayColor: this.data.totalPrice == 0 ? "toPayColor2" :"toPayColor",
     })
   }, 
 
@@ -99,7 +119,8 @@ Page({
       this.setData({
         totalPrice: total,
         notPayData: arr,
-        totalObj: totalObj
+        totalObj: totalObj,
+        toPayColor:"toPayColor"
       })
     }else{
       var arr = this.data.notPayData;
@@ -109,7 +130,8 @@ Page({
       this.setData({
         totalPrice: 0,
         notPayData: arr,
-        totalObj:[]
+        totalObj:[],
+        toPayColor: "toPayColor2"
       })
     }
 

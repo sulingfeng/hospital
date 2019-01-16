@@ -19,7 +19,8 @@ Page({
     price: "",
     departments: "",
     sickName:"",
-    sickCard:""
+    sickCard:"",
+    disabled: true
   },
 
   payInfo: function(data) {
@@ -38,17 +39,20 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
-        console.log("获取支付信息",res.data);
         var data = res.data;
-        console.log()
-        that.setData({
-          appId: data.appId,
-          nonceStr: data.nonceStr,
-          package: data.package,
-          paySign: data.paySign,
-          signType: data.signType,
-          timeStamp: data.timeStamp
-        })
+        if (data.appId){
+          that.setData({
+            appId: data.appId,
+            nonceStr: data.nonceStr,
+            package: data.package,
+            paySign: data.paySign,
+            signType: data.signType,
+            timeStamp: data.timeStamp,
+            disabled: false
+          })
+        } else {
+          that.payInfo();
+        }
       }
     })
   },
@@ -62,13 +66,13 @@ Page({
       "package": this.data.package,
       "signType": this.data.signType,
       "paySign": this.data.paySign,
-      "complete": function(res) {
+      "success": function(res) {
+        that.payYJ1Success();
+        that.payYJSuccess2();
         wx.showToast({
           title: '支付成功',
           icon: 'success',
           complete: function() {
-            that.payYJ1Success();
-            that.payYJSuccess2();
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/home/home',
@@ -102,21 +106,22 @@ Page({
       method: "POST",
       data: {
         BRID: app.globalData.BRID,
-        ZYCS: "ZYCS",
+        ZYCS: "1",  
         SFMZ: "",
         SFZH: app.globalData.SFZH,
-        JSKLB: "巨浪微信",
-        JSKH: "",
-        JSFS: "",
-        JSJE: app.globalData.JE,
-        JYLSH: app.globalData.ddh,
+        JSLIST: [{ 
+          JS:{
+            JSKLB: "巨浪微信",
+            JSJE: app.globalData.JE,
+            JYLSH: app.globalData.ddh 
+          }
+        }],
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/json'
       },
       success: function (res) {
         console.log("成功以后掉用的接口返回的参数", res);
-
       }
     })
   },

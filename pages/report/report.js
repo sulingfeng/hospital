@@ -9,7 +9,7 @@ Page({
    */
   data: {
     totalObj: [],
-    title: "住院清单",
+    title: "报告查询",
     totalPrice: 0,
     dayLog: [],
     sickName: "",
@@ -18,21 +18,23 @@ Page({
     type: ""
   },
 
-  getDayLog: function () {
+  report: function () {
     var that = this;
     wx.request({
-      url: urlApi.getDayLogUlrl(),
+      url: urlApi.getReportUrl(),
       method: "post",
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        RQ: util.formatTime2(new Date()),
+        TYPE: 0,
+        DQYS:1,
+        RNOM:"",
         BRID: app.globalData.BRID,
-        ZYCS:"1"
+        JLTS:"100"
       },
       success: function (res) {
-        if (res.data.DATAPARAM.FYHJ.ITEM) {
+        if (res.data.DATAPARAM.BGLIST != "") {
           that.setData({
             pensorShowTop: "hidden",
             pensorShowBottom: "show",
@@ -52,7 +54,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getDayLog();
+    this.report();
     this.setData({
       sickName: app.globalData.sickName,
       sickCard: app.globalData.sickCard,

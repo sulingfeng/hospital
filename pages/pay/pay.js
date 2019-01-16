@@ -22,10 +22,10 @@ Page({
     sickCard:"",
     ddh:"",
     HX:"",
+    disabled: true
   },
 
   payInfo: function(data) {
-    console.log("选择医生确定后传到支付页面的参数",data);
     var that = this;
     app.globalData.selectDate = data;
     wx.request({
@@ -34,24 +34,28 @@ Page({
       data:{
         WID :app.globalData.openid,
         HISID: data.HISID,
-        BRID:app.globalData.BRID
+        BRID:app.globalData.BRID,
+        MONEY:"0.01"
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
-        console.log("获取支付信息",res.data);
         var data = res.data;
-        console.log()
-        that.setData({
-          appId: data.appId,
-          ddh: data.ddh,
-          nonceStr: data.nonceStr,
-          package: data.package,
-          paySign: data.paySign,
-          signType: data.signType,
-          timeStamp: data.timeStamp
-        })
+        if (data.appId){
+          that.setData({
+            appId: data.appId,
+            ddh: data.ddh,
+            nonceStr: data.nonceStr,
+            package: data.package,
+            paySign: data.paySign,
+            signType: data.signType,
+            timeStamp: data.timeStamp,
+            disabled:false
+          })
+        } else {
+          that.payInfo();
+        }
       }
     })
   },
@@ -67,11 +71,6 @@ Page({
       "paySign": this.data.paySign,
       success: function(res) {
         that.paySuccess();
-        setTimeout(function () {
-          wx.switchTab({
-            url: '/pages/home/home',
-          })
-        }, 2000)
       },
       fail: function(res) {
         console.log("小程序支付失败：",res);
@@ -101,36 +100,38 @@ Page({
         CZFS:3,
         CZJLID: "",
         HM: app.globalData.selectDoctor.HM,
-        HX: app.globalData.HX+1+1+1,
+        HX: app.globalData.HX,
         HZDW:"巨浪微信",
         YYFS: "巨浪微信",
-        JSKLB:"巨浪微信",
+        SM:"巨浪微信",
         YYSJ: app.globalData.selectDate.date + " 09:00:00",
+        JQM: app.globalData.JQM,
         JE: app.globalData.selectDate.price,
         BRID: app.globalData.BRID,
-        JSJE: app.globalData.selectDate.price,
-        JQM: that.data.ddh+"巨浪微信",
-        JYLSH: that.data.ddh,
-        JSFS:"巨浪微信",
-        JSKH:""
+        FB:"普通",
+        SFZH: app.globalData.SFZH,
+        JSLIST:[{
+          JS:{
+            JSKLB:"巨浪微信",
+            JSKH:"巨浪微信",
+            JYSM:"巨浪微信",
+            JYLSH: that.data.ddh,
+            JSJE: app.globalData.selectDate.price,
+            JSFS: "巨浪微信",
+          },
+        }],
       },
-      // data2:{
-      //   CZFS:3,
-      //   HM: 24608,
-      //   HX:18,
-      //   JKFS:0,
-      //   YYSJ: "2019 - 01 - 18 09: 59: 00",
-      //   JE:"",
-      //   JSKLB:"",
-
-
-      // }
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/json'
       },
       success: function (res) {
-        console.log("成功以后掉用的接口返回的参数", res);
-        
+        if (res.data.DATAPARAM.GHDH){
+          setTimeout(function () {
+            wx.switchTab({
+              url: '/pages/home/home',
+            })
+          }, 2000)
+        }
       }
     })
   },

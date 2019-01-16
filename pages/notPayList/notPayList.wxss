@@ -82,6 +82,20 @@
 .notPayWrapper{
   padding-bottom: 60px;
 }
-
+#toPayColor{
+  background: #1498d9;
+  color: #fff;
+}
+#toPayColor2{
+  background: #ccc;
+  color: #000;
+}
+.show{
+  display: block;
+  text-align: center;
+}
+.hidden{
+  display: none;
+}
 
 

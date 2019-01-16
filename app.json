@@ -29,6 +29,7 @@
     "pages/collect/collect",
     "pages/hospitalInfo/hospitalInfo",
     "pages/GHDetail/GHDetail",
+    "pages/report/report",
     "pages/dayLog/dayLog"
   ],
   "tabBar": {

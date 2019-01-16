@@ -20,7 +20,8 @@ Page({
     departments: "",
     sickName:"",
     sickCard:"",
-    ddh:""
+    ddh:"",
+    disabled:true
   },
 
   payInfo: function(data) {
@@ -38,18 +39,21 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
-        console.log("获取支付信息",res.data);
         var data = res.data;
-        console.log()
-        that.setData({
-          appId: data.appId,
-          nonceStr: data.nonceStr,
-          package: data.package,
-          paySign: data.paySign,
-          signType: data.signType,
-          timeStamp: data.timeStamp,
-          ddh:data.ddh
-        })
+        if (data.appId){
+          that.setData({
+            appId: data.appId,
+            nonceStr: data.nonceStr,
+            package: data.package,
+            paySign: data.paySign,
+            signType: data.signType,
+            timeStamp: data.timeStamp,
+            ddh: data.ddh,
+            disabled: false
+          })
+        }else{
+          that.payInfo();
+        }
       }
     })
   },
@@ -63,12 +67,12 @@ Page({
       "package": this.data.package,
       "signType": this.data.signType,
       "paySign": this.data.paySign,
-      "complete": function(res) {
+      "success": function(res) {
+        that.payMZSuccess();
         wx.showToast({
           title: '支付成功',
           icon: 'success',
           complete: function() {
-            that.payMZSuccess();
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/home/home',
@@ -105,16 +109,21 @@ Page({
         JE: app.globalData.JE,
         SFGH: 0,
         BRID: app.globalData.BRID,
-        JSKLB: "巨浪微信",
-        JSJE: app.globalData.JE,
-        JYLSH: that.data.ddh
+        JSLIST:[{
+          JS:{
+            JSKLB: "巨浪微信",
+            JSJE: app.globalData.JE,
+            JYLSH: that.data.ddh
+          }
+        }]
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/json'
       },
       success: function (res) {
-        console.log("成功以后掉用的接口返回的参数", res);
-
+        if(res.data.JZID){
+          
+        }
       }
     })
   },

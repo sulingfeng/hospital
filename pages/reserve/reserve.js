@@ -46,52 +46,25 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
-        //KSID: that.data.KSID,
-        //RQ: 2019 - 1 - 13
+        KSID: that.data.KSID,
+        HZDW: "巨浪微信"
       },
-      success: function(reponse) {
+      success: function(response) {
         var doctorArr = new Array();
-        var list = reponse.data.DATAPARAM.GROUP.HBLIST.HB;
-        if (list.length > 0) {
-          list.map(i => {
-            var str = i.KSID.toString();
-            if (str.indexOf(",") != -1) {
-              var arr = str.split(",");
-              if (that.isInArray(arr, that.data.KSID)) {
-                doctorArr.push(i);
-              }
-            } else {
-              if (Number(i.KSID) == that.data.KSID) {
-                doctorArr.push(i);
-              }
-            }
-          })
-        }
-        that.doctorDataAdd(doctorArr);
+        var doctorList = response.data.DATAPARAM.GROUP.HBLIST.HB
+        var list = doctorList instanceof Array ? doctorList : [doctorList];
+        console.log("医生列表", list)
+        list.map(i => {
+          i.imageurl = "../../images/doctor2.jpg",
+          i.price = "3",
+          i.type = 0
+        })
+        that.setData({
+          doctors: list,
+          show: "hidden"
+        });
       }
     })
-  },
-
-  isInArray: function(arr, value) {
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] == value) {
-        return true;
-      }
-    }
-    return false;
-  },
-
-  doctorDataAdd: function (doctorArr) {
-    doctorArr.map(i => {
-      i.imageurl= "../../images/doctor.jpg",
-      i.price= "10",
-      i.type= 0
-    })
-    this.setData({
-      doctors: doctorArr,
-      show: "hidden"
-    });
-    console.log("列表", this.data.doctors)
   },
 
   /**
@@ -101,12 +74,10 @@ Page({
     var that = this;  
     app.globalData.dayFun = {
       dayFun:function(data){
-        console.log("1111111",data)
         var now = data.idx + 1
         that.setData({
           day: data.days[0].year + "-" + data.days[0].month + "-" + now
-        })
-               
+        })    
       }
     }
     this.data.KSID = options.id

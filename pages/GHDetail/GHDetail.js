@@ -19,7 +19,7 @@ Page({
     price: "",
     departments: "",
     sickName:"",
-    sickCard:""
+    sickCard:"",
   },
 
   payDom: function (){

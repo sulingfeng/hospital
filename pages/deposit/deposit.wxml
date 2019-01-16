@@ -30,7 +30,6 @@
         </i-row>
       </view>
   </i-panel>
-
   <view class='panel-p30'>
     <i-button bind:click="inputMoney" type="primary">确定</i-button>
   </view>

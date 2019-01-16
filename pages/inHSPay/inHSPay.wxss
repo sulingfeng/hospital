@@ -29,7 +29,7 @@
   text-align: center;
   color: #ffa14e;
 }
-#payYes button{
+.payYes button{
   background: #1498d9;
   border-radius: 10px;
 }

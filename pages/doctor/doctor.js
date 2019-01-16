@@ -3,6 +3,7 @@ import initCalendar from '../component/calendar/calendar/index';
 import { setTodoLabels } from '../component/calendar/calendar/index';
 import { switchView } from '../component/calendar/calendar/index';
 const urlApi = require('../../utils/server.api.js')
+const util = require("../../utils/util.js")
 var app = getApp();
 Page({
 
@@ -40,12 +41,14 @@ Page({
 
   lockModify: function () {
     var that = this;
+    app.globalData.JQM = "wx" + app.globalData.BRID + util.getRandom(1,1000000)
     wx.request({
       url: urlApi.getLockModify(), 
       method: "post",
       data: {
         HM: that.data.HM,
         YYSJ: that.data.date,
+        JQM: app.globalData.JQM,
         CZ: 1
       },
       header: {
@@ -68,7 +71,12 @@ Page({
         }else{
           wx.showToast({
             title: '请重新选择',
-            icon:"none"
+            icon:"none",
+            complete: function () {
+              setTimeout(function () {
+                that.handleCancel2();
+              }, 1000)
+            }
           })
         }
         

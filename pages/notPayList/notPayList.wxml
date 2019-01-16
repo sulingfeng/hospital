@@ -17,10 +17,11 @@
     </view>
   </view>
   </view>
+  <view class="{{show}}">您没有待缴费项目</view>
   <view class='goPayYes'>
     <checkbox checked='{{allCheck}}' bindtap="allChoose"></checkbox>
     <text>全选</text>
     <text>总金额:￥{{totalPrice}}</text>  
-    <view bindtap="toPay">去缴费</view>
+    <view id="{{toPayColor}}" bindtap="toPay">去缴费</view>
   </view>
 </view>

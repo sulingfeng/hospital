@@ -25,7 +25,7 @@
             </view>
             <view class='personInfoBottom'>
               <view data-type="0" bindtap='registerLog'>挂号记录</view>
-              <view data-type="2" bindtap='registerLog'>门诊缴费记录</view>
+              <view data-type="1" bindtap='registerLog'>门诊缴费记录</view>
               <view bindtap="EWM">就诊码</view>
             </view>
         </view>
@@ -64,7 +64,7 @@
                   </i-grid-icon>
                   <i-grid-label>添加就诊人</i-grid-label>
               </i-grid-item>
-              <i-grid-item>
+              <i-grid-item bindtap="report">
                   <i-grid-icon>
                       <image src="../../images/talk.png" />
                   </i-grid-icon>
@@ -74,7 +74,7 @@
                   <i-grid-icon>
                       <image src="../../images/bill.png" />
                   </i-grid-icon>
-                  <i-grid-label>住院日清单</i-grid-label>
+                  <i-grid-label>住院清单</i-grid-label>
               </i-grid-item>
               <i-grid-item bindtap="gotoDeposit">
                   <i-grid-icon>

@@ -26,9 +26,9 @@ Page({
       type:type
     })
     console.log("类类型类型类型型",type)
-    var url = type == 0 ? urlApi.getRegisterLogUrl():
-              type == 1?urlApi.getPayLogUrl():
-              type == 2?urlApi.getMZPayLogUrl():
+    var url = type == 0?urlApi.getRegisterLogUrl():
+              type == 1 ? urlApi.getMZPayLogUrl():
+              type == 2 ? urlApi.getPayLogUrl():
               type == 3?urlApi.getinHPayLogUrl():
               type == 4?urlApi.getDepositLogUrl() : urlApi.getPayLogUrl();              
     var title = type == 0?"挂号记录":
@@ -54,16 +54,20 @@ Page({
       },
       success: function (reponse) {
         var data = reponse.data.LIST;
-        if (data.length > 0){
+        var arr = new Array();
+        if (data != undefined && data.length > 0){
           for (var i of data) {
-            i.status = i.STATUS == 0 ? "预约成功待缴费":i.STATUS == 1?"挂号成功":"已经取消";
-            i.name = app.globalData.sickName,
-            i.detail = "就诊卡：" + app.globalData.sickCard,
-            i.price = i.MONEY/100
-            i.date = util.format(i.TIME_PAY)
+            if (i.TYPE == type){
+              i.status = i.STATUS == 0 ? "挂号成功" : i.STATUS == 1 ? "挂号成功" : "已经取消";
+              i.name = app.globalData.sickName;
+              i.detail = "就诊卡：" + app.globalData.sickCard;
+              i.price = i.MONEY / 100;
+              i.date = util.format(i.TIME_PAY);
+              arr.push(i)
+            }
           }
           that.setData({
-            notPayData: data
+            notPayData: arr
           })
         }else{
           that.setData({

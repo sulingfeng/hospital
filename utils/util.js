@@ -36,11 +36,36 @@ const format = timestamp=> {
   return Y + M + D + h + m + s;
 }
 
+function getRandom(min, max) {
+  var r = Math.random() * (max - min);
+  var re = Math.round(r + min);
+  re = Math.max(Math.min(re, max), min);
+  return re;
+}
 
+function isInArray(arr, value) {
+  for (var i = 0; i < arr.length; i++) {
+    if (value === arr[i]) {
+      return true;
+    }
+  }
+  return false;
+}
 
+function isInObject(arr,value,data) {
+  for (var i = 0; i < arr.length; i++) {
+    if (value === arr[i][data]) {
+      return arr[i];
+    }
+  }
+  return false;
+}
 
 module.exports = {
   formatTime: formatTime,
   formatTime2: formatTime2,
+  getRandom: getRandom,
+  isInArray: isInArray,
+  isInObject: isInObject,
   format: format
 }

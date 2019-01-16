@@ -5,7 +5,8 @@ const type = {
   user:"UserManager/",
   data: "Information/",
   MZ:"OutPatient/",
-  YJ:"Hospitalization/"
+  YJ:"Hospitalization/",
+  MT:"MedicalTechnology/"
 
 } 
 
@@ -121,6 +122,17 @@ const getInHopltalPay = function () {
   return url + "Weixin/Pay/Hospital";
 }
 
+//获取住院日清单
+const getDayLogUlrl = function () {
+  return url + type.YJ + "Information.DailyPayDetail.Query";
+}
+
+//获取报告
+const getReportUrl = function () {
+  return url + type.MT + "Report.Record.Query";
+}
+
+
 //获取科室介绍信息
 const getKSinfo = function () {
   return url + type.data + "Basic.DeptInfoBase.Query";
@@ -147,7 +159,11 @@ const getYJ2PaySuccess = function () {
 }
 
 
-
+//门诊代缴费日志
+const getMZnotPayLog = function () {
+  return url + "Weixin/Pay/Receipt/Array";
+}
+  
 
 
 
@@ -186,9 +202,12 @@ module.exports = {
   getMZPayInfo: getMZPayInfo,
   getSearchDoctor: getSearchDoctor,
   getKSinfo:getKSinfo,
+  getDayLogUlrl: getDayLogUlrl,
+  getReportUrl: getReportUrl,
   getGHPaySuccess: getGHPaySuccess,
   getMZPaySuccess: getMZPaySuccess,
   getYJ1PaySuccess: getYJ1PaySuccess,
   getYJ2PaySuccess: getYJ2PaySuccess,
-  getInHopltalPay: getInHopltalPay
+  getInHopltalPay: getInHopltalPay,
+  getMZnotPayLog: getMZnotPayLog
 }

@@ -27,6 +27,13 @@ Page({
     })
   },
 
+  //住院报告
+  report: function () {
+    wx.navigateTo({
+      url: '/pages/report/report'
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
