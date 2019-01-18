@@ -15,17 +15,18 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
           //获取openid接口  
-          url: 'https://api.weixin.qq.com/sns/jscode2session',
+          url: urlApi.getOpenidUrl(),//'https://api.weixin.qq.com/sns/jscode2session',
           data: {
-            appid: "wx676dc7fc17f01892",
-            secret:"e4e60e136c6cb255e7c65819b91e30d7",
-            js_code: res.code,
-            grant_type:'authorization_code'
+            //appid: "wx676dc7fc17f01892",
+            //secret:"e4e60e136c6cb255e7c65819b91e30d7",
+            JS_CODE: res.code,
+            //grant_type:'authorization_code'
           },
           method: 'GET',
           success: function (res) {
             console.log("openId获取成", res.data.openid)
             that.globalData.openid = res.data.openid;
+            that.globalData.getPonsorInfo.getPonsorInfo();
           }
         })
       }

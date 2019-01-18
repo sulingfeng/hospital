@@ -35,7 +35,7 @@ Page({
         WID :app.globalData.openid,
         HISID: data.HISID,
         BRID:app.globalData.BRID,
-        MONEY:"0.01"
+        MONEY: data.price
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -76,13 +76,13 @@ Page({
         console.log("小程序支付失败：",res);
         wx.showModal({
           title: '支付失败',
-          content: res.errMsg,
+          content: "请从新挂号",
           complete: function() {
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/home/home',
               })
-            }, 2000)
+            }, 1000)
           }
         });
       }
@@ -131,7 +131,7 @@ Page({
             wx.switchTab({
               url: '/pages/home/home',
             })
-          }, 2000)
+          }, 1000)
         }
       }
     })

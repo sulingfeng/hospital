@@ -21,7 +21,7 @@
   <view>
     <view wx:for="{{ doctors }}" wx:key="{{ item.ID }}" data-HM='{{ item.HM }}' data-doctor='{{ item }}' bindtap='toShowDoctorDetails' class='list-with-graphic'>
         <view class='list-part-top'>
-            <view class='list-part-left'>
+            <view class='list-part-left {{show}}'>
                 <image src="{{ item.imageurl }}"></image>
             </view>
             <view class='list-part-right'>
@@ -36,7 +36,6 @@
                 </view>
             </view>
         </view>
-        
     </view>
 </view>
 </view>

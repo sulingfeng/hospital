@@ -77,7 +77,7 @@ Page({
               wx.switchTab({
                 url: '/pages/home/home',
               })
-            }, 2000)
+            }, 1000)
           }
         })
       },
@@ -85,13 +85,12 @@ Page({
         console.log("小程序支付失败：",res);
         wx.showModal({
           title: '支付失败',
-          content: res.errMsg,
           complete: function() {
             setTimeout(function () {
               wx.switchTab({
                 url: '/pages/home/home',
               })
-            }, 2000)
+            }, 1000)
           }
         });
       }

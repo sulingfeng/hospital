@@ -1,6 +1,7 @@
 const domain = "https://www.easy-mock.com/mock/";
 const api = "5c26ecdc1e2c8e78ee4efbd9/hospital/";
-const url ="http://frpgz1.idcfengye.com:10038/"
+//const url ="http://frpgz1.idcfengye.com:10038/"
+const url = "https://devlops.huiwtech.com/";
 const type = {
   user:"UserManager/",
   data: "Information/",
@@ -180,6 +181,11 @@ const getCollectingListUrl = function () {
   return url + "Micro/Doctor/Favorites/Array";
 }
 
+//获取openid
+const getOpenidUrl = function () {
+  return url + "Weixin/OpenId";
+}
+
 
 /**
  * 发送Sms
@@ -199,6 +205,7 @@ module.exports = {
   getCollectingListUrl: getCollectingListUrl,
   getRegisterUrl:getRegisterUrl,
   getTableList: getTableList,
+  getOpenidUrl: getOpenidUrl,
   queryRelatives:queryRelatives,
   getNotPayListUrl: getNotPayListUrl,
   getNotPayListUrl2: getNotPayListUrl2,

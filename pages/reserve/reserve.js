@@ -46,25 +46,35 @@ Page({
       },
       data: {
         KSID: that.data.KSID,
+        RQ:that.data.day + " 09:00:00",
         HZDW: "巨浪微信"
       },
       success: function(response) {
-        if (response.data.DATAPARAM.GROUP.HBLIST == "")return;
-        var doctorArr = new Array();
-        var doctorList = response.data.DATAPARAM.GROUP.HBLIST.HB
-        var list = doctorList instanceof Array ? doctorList : [doctorList];
-        list.map(i => {
-          i.imageurl = "../../images/doctor2.jpg";
-          i.price = i.DJ== ""?3:i.DJ==undefined?3:i.DJ;
-          i.type  = 0;
-          i.SYHS  = i.SYHS == ""?0:i.SYHS;
-          i.color = i.SYHS == 0 ? "color2" : "color";
-        })
-        console.log("医生列表", list)
-        that.setData({
-          doctors: list,
-          show: "show",
-        });
+        if (response.data.DATAPARAM.GROUP.HBLIST != ""){
+          var doctorArr = new Array();
+          var doctorList = response.data.DATAPARAM.GROUP.HBLIST.HB
+          var list = doctorList instanceof Array ? doctorList : [doctorList];
+          list.map(i => {
+            i.imageurl = "../../images/doctor2.jpg";
+            i.price = i.DJ == "" ? 3 : i.DJ == undefined ? 3 : i.DJ;
+            i.type = 0;
+            i.SYHS = i.SYHS == "" ? 0 : i.SYHS;
+            i.color = i.SYHS == 0 ? "color2" : "color";
+          })
+          console.log("医生列表", list)
+          that.setData({
+            doctors: list,
+            show: "show",
+          });
+        }else{
+          var obj = { 
+            "HYMC":"没有可以挂号的医生", 
+          }
+          that.setData({
+            doctors: [obj],
+            show: "hidden",
+          });
+        }
       }
     })
   },
@@ -79,7 +89,9 @@ Page({
         var now = data.idx + 1
         that.setData({
           day: data.days[0].year + "-" + data.days[0].month + "-" + now
-        })    
+        })
+        console.log("根据日期获取医生列表",that.data.day);
+        that.getDoctorList()    
       }
     }
     this.data.KSID = options.id

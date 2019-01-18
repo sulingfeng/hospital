@@ -43,12 +43,12 @@
               </i-cell>
           </i-cell-group>
           <i-cell-group>
-              <i-cell title="门诊缴费" label="实时查看医生情况" is-link url="../notPayList/notPayList">
+              <i-cell title="门诊缴费" label="快速缴费不用排队" is-link url="../notPayList/notPayList">
                 <i-icon slot="icon" type="transaction_fill" size='36' color="#1498d9" />
               </i-cell>
           </i-cell-group>
           <i-cell-group>
-              <i-cell title="住院服务" label="实时查看医生情况" is-link url="../inHS/inHS">
+              <i-cell title="住院服务" label="省心省力安心养病" is-link url="../inHS/inHS">
                 <i-icon slot="icon" type="tasklist_fill" size='36' color="#1498d9" />
               </i-cell>
           </i-cell-group>

@@ -163,13 +163,19 @@ Page({
         that.getPonsorInfo()
       }
     }
+    app.globalData.getPonsorInfo = {
+      getPonsorInfo:function(){
+        console.log("这个函数执行了的");
+        that.getPonsorInfo();
+      }
+    }  
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getPonsorInfo();
+    
   },
 
   /**

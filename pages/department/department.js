@@ -36,7 +36,6 @@ Page({
             j.parent = 0;
             j.did = j.ID;
           }
-          console.log("科室",data);
           data.map(item => {
             // 父科室
             if (item.parent === 0) {
@@ -69,7 +68,7 @@ Page({
   onLoad: function (options) {
     this.branchList();
     var type = Number(options.type);
-    console.log("查看类型", type)
+    
     var clickType = type == 0 ? "toShowPayDoctorList" : type == 1 ? "toShowBranchInfo" : type == 2 ? "toShowDoctorList" :"toShowPayDoctorList";
     this.setData({
       clickType: clickType

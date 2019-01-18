@@ -51,7 +51,7 @@
             <view class='list-part-right'>
                 <text class='doctor-name'>医生：{{doctor}}</text> 
                 <text class='doctor-name'>科室：妇产科</text> 
-                <text class='doctor-name'>费用：￥3.00</text> 
+                <text class='doctor-name'>费用：￥{{price}}</text> 
                 <text class='doctor-name'>时间：{{date}}</text> 
             </view>
         </view>
