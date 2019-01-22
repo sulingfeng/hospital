@@ -124,6 +124,11 @@ Page({
     })
     app.globalData.dayFun = {
       dayFun: function (data) {
+        wx.showToast({
+          title: '只能续约当天挂号',
+          icon: "none"
+        })
+        return;
         console.log("1111111", data)
         var now = data.idx + 1
         that.setData({

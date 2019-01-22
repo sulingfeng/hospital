@@ -86,6 +86,11 @@ Page({
     var that = this;  
     app.globalData.dayFun = {
       dayFun:function(data){
+        wx.showToast({
+          title: '只能续约当天挂号',
+          icon:"none"
+        })
+        return;
         var now = data.idx + 1
         that.setData({
           day: data.days[0].year + "-" + data.days[0].month + "-" + now

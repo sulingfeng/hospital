@@ -35,27 +35,7 @@
     </i-modal>
 </view>
  <view>
-    <i-panel title="快速办理">
-        <view class='panel-p10'>
-          <i-cell-group>
-              <i-cell title="预约挂号" label="实时查看医生情况" is-link url="../department/department?type=0">
-                <i-icon slot="icon" type="activity_fill" size='36' color="#1498d9" />
-              </i-cell>
-          </i-cell-group>
-          <i-cell-group>
-              <i-cell title="门诊缴费" label="快速缴费不用排队" is-link url="../notPayList/notPayList">
-                <i-icon slot="icon" type="transaction_fill" size='36' color="#1498d9" />
-              </i-cell>
-          </i-cell-group>
-          <i-cell-group>
-              <i-cell title="住院服务" label="省心省力安心养病" is-link url="../inHS/inHS">
-                <i-icon slot="icon" type="tasklist_fill" size='36' color="#1498d9" />
-              </i-cell>
-          </i-cell-group>
-        </view>
-    </i-panel>
-
-    <i-panel title="常用功能">
+        <i-panel title="常用功能">
         <view class='panel-p10'>
           <i-grid>
               <i-grid-item bindtap="personList">
@@ -94,7 +74,7 @@
                   <i-grid-icon>
                       <image src="../../images/phone.png" />
                   </i-grid-icon>
-                  <i-grid-label>微网站</i-grid-label>
+                  <i-grid-label>医院简介</i-grid-label>
               </i-grid-item>
               <i-grid-item data-type="0" bindtap='registerLog'>
                   <i-grid-icon>
@@ -102,13 +82,32 @@
                   </i-grid-icon>
                   <i-grid-label>挂号记录</i-grid-label>
               </i-grid-item>
-              <i-grid-item>
+              <i-grid-item data-type="1" bindtap="goBranchList">
                   <i-grid-icon>
                       <image src="../../images/all.png" />
                   </i-grid-icon>
-                  <i-grid-label>全部</i-grid-label>
+                  <i-grid-label>科室介绍</i-grid-label>
               </i-grid-item>
           </i-grid>
+        </view>
+    </i-panel>
+    <i-panel title="快速办理">
+        <view class='panel-p10'>
+          <i-cell-group>
+              <i-cell title="预约挂号" label="实时查看医生情况" is-link url="../department/department?type=0">
+                <i-icon slot="icon" type="activity_fill" size='36' color="#1498d9" />
+              </i-cell>
+          </i-cell-group>
+          <i-cell-group>
+              <i-cell title="门诊缴费" label="快速缴费不用排队" is-link url="../notPayList/notPayList">
+                <i-icon slot="icon" type="transaction_fill" size='36' color="#1498d9" />
+              </i-cell>
+          </i-cell-group>
+          <i-cell-group>
+              <i-cell title="住院服务" label="省心省力安心养病" is-link url="../inHS/inHS">
+                <i-icon slot="icon" type="tasklist_fill" size='36' color="#1498d9" />
+              </i-cell>
+          </i-cell-group>
         </view>
     </i-panel>
   </view>

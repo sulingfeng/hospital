@@ -26,7 +26,10 @@ App({
           success: function (res) {
             console.log("openId获取成", res.data.openid)
             that.globalData.openid = res.data.openid;
-            that.globalData.getPonsorInfo.getPonsorInfo();
+            setTimeout(()=>{
+              that.globalData.getPonsorInfo.getPonsorInfo();
+            },1000)
+            //that.getPonsorInfo(res.data.openid);
           }
         })
       }
@@ -51,6 +54,29 @@ App({
       }
     })
   },
+
+  getPonsorInfo: function (id) {
+    var that = this;
+    wx.request({
+      url: urlApi.getScikList2(),
+      method: "post",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        WID: id
+      },
+      success: function (data) {
+        if (data.data.LIST.length > 0) {
+          var obj = data.data.LIST;
+          if (obj.length == 0) return;
+          that.globalData.sickList = obj;
+          console.log("就诊人获取成功", that.globalData.sickList)
+        }
+      }
+    })
+  },
+
   globalData: {
     userInfo: null
   },

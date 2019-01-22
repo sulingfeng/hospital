@@ -117,6 +117,12 @@ Page({
     })
   },
 
+  goBranchList: function (e) {
+    wx.navigateTo({
+      url: '/pages/department/department?type=' + e.currentTarget.dataset.type
+    })
+  },
+
   //获取二维码
   EWM:function () {
     this.setData({
@@ -143,6 +149,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("全局列表", app.globalData.sickList)
+
+
+
     var that = this;
     app.globalData.sickList = [];
     app.globalData.changeMan = {

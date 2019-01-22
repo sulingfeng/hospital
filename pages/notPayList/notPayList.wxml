@@ -8,7 +8,7 @@
     <view class='clearFloat'></view>
     <view class='seeCard'>就诊卡：{{sickCard}}</view>
   </view>
-  <view class='notPayTitle'>代缴费项目</view>  
+  <view class='notPayTitle'>待缴费项目</view>  
   <view class="notPayWrapper">
     <view wx:for="{{notPayData}}" wx:key="{{ item.id }}">
       <checkbox bindtap="handleClick" checked="{{item.checked}}" data-price="{{ item.price }}" data-id="{{ item.id }}"></checkbox>

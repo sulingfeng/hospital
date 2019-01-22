@@ -7,4 +7,15 @@
           </i-cell>
       </i-cell-group>
     </view>
+    <view class="sickArr"><text>就诊人列表</text></view>
+    <view class="wrapper" wx:for="{{sickList}}" wx:key="{{ item.id }}" bindtap='detailFun'>
+      <view>
+        <text>{{item.NAME}}</text>
+        <view>就诊卡：{{item.PATIENT_ID}}</view>
+      </view>
+      <view class="wrapperBottom">
+        <text>{{item.ADDRESS}}</text>
+        <view>身份证：{{item.IDCARD}}</view>
+      </view>
+    </view>
 </i-panel>
