@@ -1,4 +1,5 @@
 // pages/deposit/deposit.js
+const urlApi = require('../../utils/server.api.js')
 var app = getApp();
 Page({
 
@@ -56,6 +57,31 @@ Page({
     }
     wx.navigateTo({
       url: '/pages/inHSPay/inHSPay?info=' + JSON.stringify(info)
+    })
+  },
+
+  getInHosptalInfo(){
+    wx.request({
+      url: urlApi.getCollectingUrl(),
+      method: "post",
+      data: {
+        WID: app.globalData.openid,
+        ID: app.globalData.selectDoctor.YSID,
+        BRID: app.globalData.BRID,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        if (res.data.BRID) {
+          wx.showToast({
+            title: '收藏成功',
+            icon: "success",
+          })
+        } else {
+
+        }
+      }
     })
   },
 

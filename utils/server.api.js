@@ -2,6 +2,7 @@ const domain = "https://www.easy-mock.com/mock/";
 const api = "5c26ecdc1e2c8e78ee4efbd9/hospital/";
 //const url ="http://frpgz1.idcfengye.com:10038/"
 const url = "https://devlops.huiwtech.com/";
+//const url = "https://server1.huiwtech.com:10001"
 const type = {
   user:"UserManager/",
   data: "Information/",
@@ -186,6 +187,11 @@ const getOpenidUrl = function () {
   return url + "Weixin/OpenId";
 }
 
+//获取当前人的住院信息
+const getInHosptalUrl = function () {
+  return url + "Information.Detail.Query";
+}
+
 
 /**
  * 发送Sms
@@ -201,6 +207,7 @@ const sendSms = function (phone, type) {
 
 module.exports = {
   getPensorInfoUrl: getPensorInfoUrl,
+  getInHosptalUrl: getInHosptalUrl,
   getCollectingUrl: getCollectingUrl,
   getCollectingListUrl: getCollectingListUrl,
   getRegisterUrl:getRegisterUrl,
